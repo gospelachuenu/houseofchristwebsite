@@ -5,7 +5,7 @@
     "type": "module",
     "main": "server.js",
     "engines": {
-      "node": ">=16.0.0 <19.0.0"
+      "node": "18.19.1"
     },
     "scripts": {
       "start": "node server.js"
