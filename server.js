@@ -20,6 +20,22 @@ const supabase = createClient(
 
 app.use(cors());
 app.use(express.json());
+
+// Serve the Opening Soon page for all root requests - MUST BE BEFORE express.static
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
+});
+
+// Redirect all other routes to opening-soon.html - MUST BE BEFORE express.static
+app.get('*', (req, res) => {
+  if (req.path === '/opening-soon.html') {
+    res.sendFile(path.join(__dirname, 'opening-soon.html'));
+  } else {
+    res.redirect('/');
+  }
+});
+
+// Serve static files AFTER the routes
 app.use(express.static(__dirname));
 
 // Add contact form API route
@@ -229,20 +245,6 @@ app.post('/api/save-form-data', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: 'Failed to save donation.' });
     }
-});
-
-// Serve the Opening Soon page for all root requests
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'opening-soon.html'));
-});
-
-// Redirect all other routes to opening-soon.html
-app.get('*', (req, res) => {
-  if (req.path === '/opening-soon.html') {
-    res.sendFile(path.join(__dirname, 'opening-soon.html'));
-  } else {
-    res.redirect('/');
-  }
 });
 
 const PORT = process.env.PORT || 3000;
