@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Give - House of Christ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        :root {
+            --primary-red: #FF0000;
+            --primary-blue: #87CEEB;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --gold: #FFD700;
+            --text-color: #000000;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        .modern-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .give-hero {
+            width: 100vw;
+            min-height: 48vh;
+            background: linear-gradient(120deg, rgba(255,0,0,0.6), rgba(255,215,0,0.3)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 70px;
+            position: relative;
+        }
+        .give-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2;
+            padding: 4rem 2rem 3rem 2rem;
+        }
+        .give-hero h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.18);
+        }
+        .give-hero p {
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.13);
+            margin-bottom: 2.5rem;
+        }
+        .give-main-area {
+            max-width: 600px;
+            margin: -60px auto 2.5rem auto;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            padding: 3rem 2.5rem 2.5rem 2.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .give-main-area h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 1.2rem;
+        }
+        .give-main-area p {
+            font-size: 1.15rem;
+            color: #444;
+            margin-bottom: 2.2rem;
+        }
+        .give-main-btn {
+            padding: 1.1rem 2.5rem;
+            font-size: 1.18rem;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        .give-main-btn:hover {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 18px rgba(255,0,0,0.13);
+        }
+        .give-impact-section {
+            max-width: 900px;
+            margin: 3.5rem auto 2.5rem auto;
+            background: linear-gradient(120deg, #fafdff 60%, #f3f6ff 100%);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+            padding: 2.5rem 2rem 2.5rem 2rem;
+            text-align: center;
+        }
+        .give-impact-title {
+            color: var(--primary-red);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .give-impact-desc {
+            font-size: 1.13rem;
+            margin-bottom: 1.2rem;
+            color: #333;
+        }
+        .give-impact-scripture {
+            font-style: italic;
+            color: var(--primary-blue);
+            font-size: 1.08rem;
+            margin-bottom: 0.7rem;
+        }
+        .secure-section {
+            max-width: 600px;
+            margin: 2.5rem auto 0 auto;
+            background: #fafdff;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .secure-icon {
+            color: var(--primary-blue);
+            font-size: 2rem;
+        }
+        .secure-text {
+            font-size: 1.08rem;
+            color: #333;
+        }
+        .give-questions {
+            max-width: 600px;
+            margin: 2.5rem auto 2.5rem auto;
+            text-align: center;
+        }
+        .give-questions a {
+            color: var(--primary-red);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        @media (max-width: 900px) {
+            .give-main-area { padding: 2rem 0.7rem 2rem 0.7rem; }
+            .give-impact-section { padding: 1.2rem 0.5rem 1.2rem 0.5rem; }
+        }
+        .footer {
+            background: var(--text-color);
+            color: var(--white);
+            padding: 4rem 5% 0;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding-bottom: 2rem;
+        }
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover {
+            color: var(--primary-red);
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        #card-element {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        #card-errors {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="modern-nav">
+        <a href="church-designs.html" class="nav-brand">
+            <img src="images/HOC3.png" alt="Church Logo" style="height: 50px; margin-right: 10px; vertical-align: middle;">
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 1.5rem; vertical-align: middle;">House of Christ</span>
+        </a>
+        <div class="nav-links">
+            <a href="church-designs.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="events.html">Events</a>
+            <a href="give.html" style="color: var(--primary-red); font-weight:700;">Give</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    <section class="give-hero">
+        <div class="give-hero-content">
+            <h1>Give to House of Christ</h1>
+            <p>Your generosity makes a difference. Thank you for supporting our mission and ministry!</p>
+        </div>
+    </section>
+    <section class="give-main-area">
+        <h2>Make a Donation</h2>
+        <p>Your generosity helps us continue our mission.</p>
+        
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="amount">Amount (USD)</label>
+                <input type="number" id="amount" min="1" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="card-element">Credit or Debit Card</label>
+                <div id="card-element"></div>
+                <div id="card-errors" role="alert"></div>
+            </div>
+            
+            <button type="submit" class="give-main-btn" id="submit-button">
+                <span id="button-text">Donate Now</span>
+                <div id="spinner" class="spinner hidden"></div>
+            </button>
+        </form>
+    </section>
+    <section class="give-impact-section">
+        <div class="give-impact-title">Your Giving Makes an Impact</div>
+        <div class="give-impact-desc">Your generosity enables us to provide outreach, support missions, and create a welcoming space for all. Together, we are making a difference in our city and beyond.</div>
+        <div class="give-impact-scripture">“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.”</div>
+        <div style="color:#888; font-size:1rem;">— 2 Corinthians 9:7</div>
+    </section>
+    <div class="secure-section">
+        <span class="secure-icon"><i class="fas fa-lock"></i></span>
+        <span class="secure-text">All transactions are secure and encrypted.</span>
+    </div>
+    <div class="give-questions">
+        <div>Have questions about giving? <a href="contact.html">Contact us</a> or see our <a href="#">Giving FAQ</a>.</div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Church Street, City, State 12345</p>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@gracechurch.org</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="sermons.html">Sermons</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="give.html">Give</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Service Times</h3>
+                <p>Sunday Services: 9:00 AM & 11:00 AM</p>
+                <p>Wednesday Bible Study: 7:00 PM</p>
+                <p>Youth Group: Friday 6:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 House of Christ. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        // Initialize Stripe
+        const stripe = Stripe('pk_live_51R44N5G1eJ4Jk84d7hdP8V5134UyRQDLHppSGowooBxAZ9deUrIfHl7qIVi4zth1KNvoHvq1qGXuwUfT6u7CpuYR00xSkcLbOb');
+        const elements = stripe.elements();
+        
+        // Create card element
+        const card = elements.create('card');
+        card.mount('#card-element');
+        
+        // Handle form submission
+        const form = document.getElementById('payment-form');
+        const submitButton = document.getElementById('submit-button');
+        
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            // Disable the submit button to prevent repeated clicks
+            submitButton.disabled = true;
+            document.getElementById('spinner').classList.remove('hidden');
+            document.getElementById('button-text').classList.add('hidden');
+            
+            try {
+                // Get the amount from the form
+                const amount = document.getElementById('amount').value;
+                const email = document.getElementById('email').value;
+                const name = document.getElementById('name').value;
+                
+                // Create payment intent (local backend)
+                const response = await fetch('http://localhost:3000/api/create-payment-intent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ amount, email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                // Confirm the payment
+                const result = await stripe.confirmCardPayment(data.clientSecret, {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            name: name,
+                            email: email
+                        }
+                    }
+                });
+                
+                if (result.error) {
+                    throw new Error(result.error.message);
+                }
+                
+                // Payment successful - save form data (local backend)
+                const formData = {
+                    name: name,
+                    email: email,
+                    amount: amount
+                };
+                
+                const saveResponse = await fetch('http://localhost:3000/api/save-form-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        paymentIntentId: result.paymentIntent.id,
+                        formData
+                    })
+                });
+                
+                const saveData = await saveResponse.json();
+                
+                if (saveData.error) {
+                    throw new Error(saveData.error);
+                }
+                
+                // Show success message
+                window.location.href = 'give-success.html';
+                
+            } catch (error) {
+                // Show error message
+                const errorElement = document.getElementById('card-errors');
+                errorElement.textContent = error.message;
+                
+                // Re-enable the submit button
+                submitButton.disabled = false;
+                document.getElementById('spinner').classList.add('hidden');
+                document.getElementById('button-text').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html> 

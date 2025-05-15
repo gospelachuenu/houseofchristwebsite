@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walking in Faith - House of Christ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-red: #FF0000;
+            --primary-blue: #87CEEB;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --text-color: #000000;
+            --gold: #FFD700;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+        .modern-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .sermon-main {
+            max-width: 1100px;
+            margin: 100px auto 0 auto;
+            padding: 0 0 2.5rem 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .sermon-back {
+            margin-bottom: 2rem;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fff;
+            color: var(--primary-red);
+            border: 1px solid #eee;
+            border-radius: 30px;
+            padding: 0.5rem 1.3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .back-btn:hover {
+            background: var(--primary-red);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(255,0,0,0.10);
+        }
+        .sermon-video-wrap {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+            background: #000;
+            border-radius: 18px;
+            overflow: hidden;
+        }
+        .sermon-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
+        }
+        .sermon-info-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 2.5rem;
+        }
+        .sermon-info-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 4px solid var(--primary-blue);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+        }
+        .sermon-info-details {
+            flex: 1;
+        }
+        .sermon-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary-red);
+        }
+        .sermon-date {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .sermon-desc {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 900px) {
+            .sermon-info-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem 1rem;
+            }
+            .sermon-info-img {
+                margin-bottom: 1rem;
+            }
+        }
+        .footer {
+            background: var(--text-color);
+            color: var(--white);
+            padding: 4rem 5% 0;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding-bottom: 2rem;
+        }
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover {
+            color: var(--primary-red);
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .social-links { justify-content: center; }
+        }
+        .sermon-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            padding: 2rem 2rem 1.2rem 2rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .sermon-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 0.7rem;
+            letter-spacing: -1px;
+            word-break: break-word;
+        }
+        .sermon-description {
+            font-size: 1.15rem;
+            color: #222;
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+            word-break: break-word;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(.23,1.01,.32,1) forwards;
+        }
+        .fade-in-video {
+            opacity: 0;
+            transform: scale(0.97);
+            animation: fadeInVideo 1s cubic-bezier(.23,1.01,.32,1) 0.2s forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        @keyframes fadeInVideo {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="modern-nav">
+        <a href="church-designs.html" class="nav-brand">
+            <img src="images/HOC3.png" alt="Church Logo" style="height: 50px; margin-right: 10px; vertical-align: middle;">
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 1.5rem; vertical-align: middle;">House of Christ</span>
+        </a>
+        <div class="nav-links">
+            <a href="church-designs.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="events.html">Events</a>
+            <a href="#">Give</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+    <main class="sermon-main">
+        <div class="sermon-back">
+            <a href="sermons.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Sermons
+            </a>
+        </div>
+        <div class="sermon-video-wrap fade-in-video">
+            <video id="player" playsinline controls class="sermon-video">
+                <!-- Video source will be set dynamically -->
+            </video>
+        </div>
+        <div class="sermon-info-card fade-in">
+            <img src="images/HOC3.png" alt="Speaker" class="sermon-info-img">
+            <div class="sermon-info-details">
+                <div class="sermon-title">Loading...</div>
+                <div class="sermon-date">Loading...</div>
+                <div class="sermon-desc">Loading...</div>
+                <div class="sermon-speaker">Loading...</div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Church Street, City, State 12345</p>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@gracechurch.org</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="sermons.html">Sermons</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="give.html">Give</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Service Times</h3>
+                <p>Sunday Services: 9:00 AM & 11:00 AM</p>
+                <p>Wednesday Bible Study: 7:00 PM</p>
+                <p>Youth Group: Friday 6:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Grace Church. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', async function() {
+        const supabaseUrl = 'https://lcuruntkcpddpzmzdnyn.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjdXJ1bnRrY3BkZHB6bXpkbnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDcyMDksImV4cCI6MjA2MjQ4MzIwOX0.AogQJ4KEqOQUtamf9OruOkpMO813Yj6-IWT3LCBQsGY';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const sermonId = urlParams.get('id');
+
+            try {
+                const { data: sermon, error } = await supabase
+                .from('sermons')
+                .select('*')
+                    .eq('id', sermonId)
+                .single();
+
+                if (error) {
+                    throw error;
+                }
+
+                if (!sermon) {
+                    document.querySelector('.sermon-title').textContent = 'Sermon not found';
+                    document.querySelector('.sermon-desc').textContent = '';
+                return;
+            }
+
+                if (!sermon.video_url) {
+                    document.querySelector('.sermon-title').textContent = 'Video not available';
+                    document.querySelector('.sermon-desc').textContent = '';
+                return;
+            }
+
+                const video = document.getElementById('player');
+                video.innerHTML = `<source src="${sermon.video_url}" type="video/mp4">`;
+                
+                document.querySelector('.sermon-title').textContent = sermon.title;
+                const d = new Date(sermon.date);
+                const formattedDate = d.getDate().toString().padStart(2, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getFullYear();
+                document.querySelector('.sermon-date').textContent = formattedDate;
+                document.querySelector('.sermon-desc').textContent = sermon.description;
+                document.querySelector('.sermon-speaker').innerHTML = `<strong>Speaker:</strong> ${sermon.speaker ? sermon.speaker : 'Unknown Speaker'}`;
+
+                const player = new Plyr('#player', {
+                    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+                    quality: { default: 720, options: [4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240] }
+                });
+            } catch (error) {
+                document.querySelector('.sermon-title').textContent = 'Error loading sermon';
+                document.querySelector('.sermon-desc').textContent = 'Please try again later';
+            }
+        });
+    </script>
+</body>
+</html> 

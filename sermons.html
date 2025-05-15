@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sermons - House of Christ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #FF0000;
+            --primary-blue: #87CEEB;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --gold: #FFD700;
+            --text-color: #000000;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--text-color);
+            margin: 0;
+        }
+        .modern-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: scaleIn 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.4);
+        }
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        .sermons-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(135, 206, 235, 0.7), rgba(255, 0, 0, 0.7)),
+                        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 64px;
+        }
+        .sermons-hero-content {
+            max-width: 700px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .sermons-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .sermons-hero p {
+            font-size: 1.2rem;
+        }
+        .sermons-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        .sermon-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 2rem;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .sermon-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 1rem;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s cubic-bezier(.23,1.01,.32,1) forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        .sermon-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+        }
+        .sermon-thumbnail {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .sermon-info {
+            padding: 0.75rem 0.5rem 0.5rem 0.5rem;
+        }
+        .sermon-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+        .sermon-date {
+            color: var(--primary-red);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .sermon-description {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        .sermon-link {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            background: linear-gradient(90deg, var(--primary-red), var(--gold));
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: none;
+            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+        .sermon-link:hover {
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
+            color: var(--white);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 6px 18px rgba(255,0,0,0.13);
+        }
+        .footer {
+            background: var(--text-color);
+            color: var(--white);
+            padding: 4rem 5% 0;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding-bottom: 2rem;
+        }
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .footer-section ul {
+            list-style: none;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-section a:hover {
+            color: var(--primary-red);
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--primary-red);
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        @media (max-width: 1024px) {
+            .sermon-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .pagination-arrow:first-child {
+                margin-left: -15px;
+            }
+            .pagination-arrow:last-child {
+                margin-right: -15px;
+            }
+        }
+        @media (max-width: 768px) {
+            .sermon-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            .sermons-section { 
+                padding: 1.5rem 0.5rem; 
+            }
+            .footer-content { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+            }
+            .social-links { 
+                justify-content: center; 
+            }
+            .pagination-controls {
+                position: relative;
+                top: auto;
+                transform: none;
+                margin-top: 2rem;
+                justify-content: center;
+                gap: 2rem;
+            }
+            .pagination-arrow:first-child,
+            .pagination-arrow:last-child {
+                margin: 0;
+            }
+        }
+        .pagination-controls {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .pagination-arrow {
+            background: var(--white);
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            pointer-events: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .pagination-arrow:first-child {
+            margin-left: -25px;
+        }
+        .pagination-arrow:last-child {
+            margin-right: -25px;
+        }
+        .pagination-arrow:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            border-color: #ccc;
+            color: #ccc;
+        }
+        .pagination-arrow:disabled:hover {
+            box-shadow: none;
+        }
+        .pagination-arrow:disabled::before {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="modern-nav">
+        <a href="church-designs.html" class="nav-brand">
+            <img src="images/HOC3.png" alt="Church Logo" style="height: 50px; margin-right: 10px; vertical-align: middle;">
+            <span style="font-family: 'Montserrat', sans-serif; font-size: 1.5rem; vertical-align: middle;">House of Christ</span>
+        </a>
+        <div class="nav-links">
+            <a href="church-designs.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="sermons.html">Sermons</a>
+            <a href="events.html">Events</a>
+            <a href="give.html">Give</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+    <section class="sermons-hero">
+        <div class="sermons-hero-content">
+            <h1>Sermons</h1>
+            <p>Watch and listen to our latest sermons and teachings.</p>
+        </div>
+    </section>
+    <section class="sermons-section">
+        <h2 style="text-align:center;">Available Sermons</h2>
+        <div id="sermons-container" class="sermon-grid"></div>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Church Street, City, State 12345</p>
+                <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@gracechurch.org</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="sermons.html">Sermons</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Give</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Service Times</h3>
+                <p>Sunday Services: 9:00 AM & 11:00 AM</p>
+                <p>Wednesday Bible Study: 7:00 PM</p>
+                <p>Youth Group: Friday 6:00 PM</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 House of Christ. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+      const supabaseUrl = 'https://lcuruntkcpddpzmzdnyn.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjdXJ1bnRrY3BkZHB6bXpkbnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDcyMDksImV4cCI6MjA2MjQ4MzIwOX0.AogQJ4KEqOQUtamf9OruOkpMO813Yj6-IWT3LCBQsGY';
+      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+      async function loadSermons() {
+        function formatDate(dateStr) {
+          const d = new Date(dateStr);
+          if (isNaN(d)) return dateStr;
+          return d.getDate().toString().padStart(2, '0') + '-' +
+                 (d.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                 d.getFullYear();
+        }
+        const { data, error } = await supabase
+          .from('sermons')
+          .select('*');
+        const container = document.getElementById('sermons-container');
+        // Pagination variables
+        let currentPage = 0;
+        const pageSize = 6;
+        let sermons = [];
+        if (error) {
+          container.innerHTML = '<p>Error: ' + error.message + '</p>';
+        } else {
+          if (data.length === 0) {
+            container.innerHTML = '<p>No sermons found.</p>';
+          } else {
+            // Sort by date descending (newest first)
+            sermons = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+            function renderPage(page) {
+              container.innerHTML = '';
+              const start = page * pageSize;
+              const end = Math.min(start + pageSize, sermons.length);
+              for (let i = start; i < end; i++) {
+                const sermon = sermons[i];
+                const card = document.createElement('div');
+                card.className = 'sermon-card';
+                card.style.animationDelay = ((i % pageSize) * 0.12) + 's';
+                card.innerHTML = `
+                  <img src="${sermon.thumbnail_url}" alt="${sermon.title}" class="sermon-thumbnail">
+                  <div class="sermon-info">
+                    <h3 class="sermon-title">${sermon.title}</h3>
+                    <p class="sermon-date">${formatDate(sermon.date)}</p>
+                    <p class="sermon-description">${sermon.description}</p>
+                    <a href="sermon.html?id=${sermon.id}" class="sermon-link">Watch Sermon</a>
+                  </div>
+                `;
+                container.appendChild(card);
+              }
+              
+              // Add pagination controls with arrows
+              const totalPages = Math.ceil(sermons.length / pageSize);
+              if (totalPages > 1) {
+                const controls = document.createElement('div');
+                controls.className = 'pagination-controls';
+                controls.innerHTML = `
+                  <button class="pagination-arrow" id="prevPage" ${page === 0 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <button class="pagination-arrow" id="nextPage" ${page >= totalPages - 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                `;
+                container.appendChild(controls);
+                
+                if (document.getElementById('prevPage')) {
+                  document.getElementById('prevPage').onclick = () => {
+                    if (currentPage > 0) {
+                      currentPage--;
+                      renderPage(currentPage);
+                    }
+                  };
+                }
+                if (document.getElementById('nextPage')) {
+                  document.getElementById('nextPage').onclick = () => {
+                    if (currentPage < totalPages - 1) {
+                      currentPage++;
+                      renderPage(currentPage);
+                    }
+                  };
+                }
+              }
+            }
+            renderPage(currentPage);
+          }
+        }
+      }
+      window.addEventListener('DOMContentLoaded', loadSermons);
+    </script>
+</body>
+</html> 
