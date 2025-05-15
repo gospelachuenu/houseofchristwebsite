@@ -231,6 +231,20 @@ app.post('/api/save-form-data', async (req, res) => {
     }
 });
 
+// Serve the Opening Soon page for all root requests
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
+});
+
+// Redirect all other routes to opening-soon.html
+app.get('*', (req, res) => {
+  if (req.path === '/opening-soon.html') {
+    res.sendFile(path.join(__dirname, 'opening-soon.html'));
+  } else {
+    res.redirect('/');
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
