@@ -21,12 +21,15 @@ const supabase = createClient(
 app.use(cors());
 app.use(express.json());
 
-// Serve the Opening Soon page for all root requests - MUST BE BEFORE express.static
+// Serve images directory statically - MUST BE BEFORE routes
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// Serve the Opening Soon page for all root requests
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
-// Redirect all other routes to opening-soon.html - MUST BE BEFORE express.static
+// Redirect all other routes to opening-soon.html
 app.get('*', (req, res) => {
   if (req.path === '/opening-soon.html') {
     res.sendFile(path.join(__dirname, 'opening-soon.html'));
