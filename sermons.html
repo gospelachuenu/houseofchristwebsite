@@ -47,6 +47,17 @@
             font-weight: 700;
             color: var(--text-color);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            max-height: 80px;
+            overflow: hidden;
+        }
+        .nav-brand img {
+            height: 200px;
+            margin-right: 0;
+            vertical-align: middle;
+            transform: scale(0.8);
+            transform-origin: left center;
         }
         .nav-links {
             display: flex;
@@ -229,9 +240,24 @@
             margin-bottom: 1.5rem;
             font-size: 1.2rem;
         }
-        .footer-section p {
+        .footer-section p, .footer-section .footer-contact-row {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
             margin-bottom: 0.8rem;
             color: rgba(255, 255, 255, 0.8);
+            font-size: 0.97rem;
+        }
+        .footer-contact-icon {
+            min-width: 22px;
+            text-align: center;
+            margin-top: 2px;
+        }
+        .footer-contact-email span {
+            white-space: nowrap;
+            overflow-wrap: anywhere;
+            font-size: 0.85rem;
+            letter-spacing: -0.01em;
         }
         .footer-section ul {
             list-style: none;
@@ -363,8 +389,7 @@
 <body>
     <nav class="modern-nav">
         <a href="index.html" class="nav-brand">
-            <img src="images/HOC3.png" alt="Church Logo" style="height: 50px; margin-right: 10px; vertical-align: middle;">
-            <span style="font-family: 'Montserrat', sans-serif; font-size: 1.5rem; vertical-align: middle;">House of Christ</span>
+            <img src="images/HOC.png" alt="Church Logo">
         </a>
         <div class="nav-links">
             <a href="index.html">Home</a>
@@ -411,10 +436,9 @@
             <div class="footer-section">
                 <h3>Connect With Us</h3>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -512,4 +536,4 @@
       window.addEventListener('DOMContentLoaded', loadSermons);
     </script>
 </body>
-</html> 
+</html>

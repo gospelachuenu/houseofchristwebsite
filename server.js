@@ -29,17 +29,42 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
-// Redirect all other routes to opening-soon.html
+// Allow direct access to main pages
+app.get('/give.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'give.html'));
+});
+
+app.get('/about.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'about.html'));
+});
+
+app.get('/sermons.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'sermons.html'));
+});
+
+app.get('/events.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'events.html'));
+});
+
+app.get('/contact.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'contact.html'));
+});
+
+app.get('/give-success.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'give-success.html'));
+});
+
+// Serve static files
+app.use(express.static(__dirname));
+
+// Only redirect unknown routes to opening-soon.html
 app.get('*', (req, res) => {
   if (req.path === '/opening-soon.html') {
     res.sendFile(path.join(__dirname, 'opening-soon.html'));
-  } else {
+  } else if (!req.path.includes('.')) {  // Only redirect if it's not a file request
     res.redirect('/');
   }
 });
-
-// Serve static files AFTER the routes
-app.use(express.static(__dirname));
 
 // Add contact form API route
 app.use('/api/contact', contactRoute);
@@ -250,7 +275,7 @@ app.post('/api/save-form-data', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 }); 
