@@ -98,13 +98,13 @@ app.get('/give-success.html', (req, res) => {
 // Serve static files
 app.use(express.static(__dirname));
 
-// Only redirect unknown routes to opening-soon.html
+// Redirect all other routes to opening-soon.html
 app.get('*', (req, res) => {
-  if (req.path === '/opening-soon.html') {
-    res.sendFile(path.join(__dirname, 'opening-soon.html'));
-  } else if (!req.path.includes('.')) {  // Only redirect if it's not a file request
-    res.redirect('/');
-  }
+    if (req.path === '/opening-soon.html') {
+        res.sendFile(path.join(__dirname, 'opening-soon.html'));
+    } else {
+        res.redirect('/');
+    }
 });
 
 // Add contact form API route
