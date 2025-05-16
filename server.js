@@ -18,15 +18,56 @@ const supabase = createClient(
   process.env.SUPABASE_ANON_KEY
 );
 
+// Add these constants at the top with other imports
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+let liveStreamCache = {
+    isLive: false,
+    lastChecked: 0,
+    videoId: null
+};
+
 app.use(cors());
 app.use(express.json());
 
 // Serve images directory statically - MUST BE BEFORE routes
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Serve the Opening Soon page for all root requests
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'opening-soon.html'));
+// Add this function before the routes
+async function checkLiveStreamStatus() {
+    const now = Date.now();
+    // Only check if cache is expired
+    if (now - liveStreamCache.lastChecked < CACHE_DURATION) {
+        return liveStreamCache;
+    }
+
+    try {
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${process.env.YOUTUBE_CHANNEL_ID}&type=video&eventType=live&key=${process.env.YOUTUBE_API_KEY}`);
+        const data = await response.json();
+        
+        liveStreamCache = {
+            isLive: data.items && data.items.length > 0,
+            lastChecked: now,
+            videoId: data.items && data.items.length > 0 ? data.items[0].id.videoId : null
+        };
+        
+        return liveStreamCache;
+    } catch (error) {
+        console.error('Error checking live stream:', error);
+        return liveStreamCache;
+    }
+}
+
+// Serve the index page for all root requests
+app.get('/', async (req, res) => {
+    const liveStatus = await checkLiveStreamStatus();
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Add a new endpoint for live stream status
+app.get('/api/live-status', async (req, res) => {
+    const liveStatus = await checkLiveStreamStatus();
+    res.set('Cache-Control', `public, max-age=${CACHE_DURATION / 1000}`);
+    res.json(liveStatus);
 });
 
 // Allow direct access to main pages
