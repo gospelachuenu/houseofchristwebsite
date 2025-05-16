@@ -26,7 +26,16 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Serve the Opening Soon page for all root requests
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'opening-soon.html'));
+  // Get current timestamp
+  const currentTime = Date.now();
+  // Set the time when we want to switch back (10 minutes from now)
+  const switchBackTime = currentTime + (10 * 60 * 1000); // 10 minutes in milliseconds
+  
+  // For now, serve index.html instead of opening-soon.html
+  res.sendFile(path.join(__dirname, 'index.html'));
+  
+  // Log the switch back time for reference
+  console.log(`Will switch back to opening-soon.html at: ${new Date(switchBackTime).toLocaleString()}`);
 });
 
 // Allow direct access to main pages
