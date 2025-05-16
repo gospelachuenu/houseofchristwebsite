@@ -95,8 +95,23 @@ app.get('/give-success.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'give-success.html'));
 });
 
-// Serve static files
-app.use(express.static(__dirname));
+// Serve static files (but not HTML files)
+app.use(express.static(__dirname, {
+    setHeaders: (res, path) => {
+        if (path.endsWith('.html') && !path.endsWith('opening-soon.html')) {
+            res.redirect('/');
+        }
+    }
+}));
+
+// Redirect all HTML files to opening-soon.html
+app.get('*.html', (req, res) => {
+    if (req.path === '/opening-soon.html') {
+        res.sendFile(path.join(__dirname, 'opening-soon.html'));
+    } else {
+        res.redirect('/');
+    }
+});
 
 // Redirect all other routes to opening-soon.html
 app.get('*', (req, res) => {
