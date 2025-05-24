@@ -57,10 +57,10 @@ async function checkLiveStreamStatus() {
     }
 }
 
-// Serve the Opening Soon page for all root requests
+// Serve the main index page for all root requests
 app.get('/', async (req, res) => {
     const liveStatus = await checkLiveStreamStatus();
-    res.sendFile(path.join(__dirname, 'opening-soon.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Add a new endpoint for live stream status
