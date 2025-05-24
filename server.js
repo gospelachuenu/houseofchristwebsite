@@ -70,6 +70,9 @@ app.get('/api/live-status', async (req, res) => {
     res.json(liveStatus);
 });
 
+// Serve static files
+app.use(express.static(__dirname));
+
 // Allow direct access to main pages
 app.get('/give.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'give.html'));
@@ -93,33 +96,6 @@ app.get('/contact.html', (req, res) => {
 
 app.get('/give-success.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'give-success.html'));
-});
-
-// Serve static files (but not HTML files)
-app.use(express.static(__dirname, {
-    setHeaders: (res, path) => {
-        if (path.endsWith('.html') && !path.endsWith('opening-soon.html')) {
-            res.redirect('/');
-        }
-    }
-}));
-
-// Redirect all HTML files to opening-soon.html
-app.get('*.html', (req, res) => {
-    if (req.path === '/opening-soon.html') {
-        res.sendFile(path.join(__dirname, 'opening-soon.html'));
-    } else {
-        res.redirect('/');
-    }
-});
-
-// Redirect all other routes to opening-soon.html
-app.get('*', (req, res) => {
-    if (req.path === '/opening-soon.html') {
-        res.sendFile(path.join(__dirname, 'opening-soon.html'));
-    } else {
-        res.redirect('/');
-    }
 });
 
 // Add contact form API route
