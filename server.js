@@ -59,8 +59,7 @@ async function checkLiveStreamStatus() {
 
 // Serve the main index page for all root requests
 app.get('/', async (req, res) => {
-    const liveStatus = await checkLiveStreamStatus();
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 // Add a new endpoint for live stream status
@@ -305,6 +304,11 @@ app.post('/api/save-form-data', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: 'Failed to save donation.' });
     }
+});
+
+// Catch-all route to redirect all other routes to coming soon page
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 const port = process.env.PORT || 3000;
