@@ -3,431 +3,326 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - House Of Christ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>About Us - House Of Christ International</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --primary-red: #FF0000;
-            --primary-blue: #87CEEB;
-            --white: #FFFFFF;
-            --light-gray: #F5F5F5;
-            --gold: #FFD700;
-            --text-color: #000000;
+            --navy:    #0D1B2A;
+            --crimson: #C0392B;
+            --gold:    #C9A84C;
+            --cream:   #FAF8F5;
+            --white:   #FFFFFF;
+            --gray-50: #F9F9F7;
+            --gray-100:#F0EDE8;
+            --gray-400:#9E9790;
+            --gray-700:#4A4540;
+            --text:    #1A1612;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            background-color: var(--light-gray);
-            color: var(--text-color);
+        /* NAV */
+        .nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(13,27,42,0.97); backdrop-filter: blur(12px);
+            padding: 0 6%; display: flex; justify-content: space-between; align-items: center;
+            height: 70px; z-index: 1000; border-bottom: 1px solid rgba(201,168,76,0.2);
         }
+        .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .nav-logo-img { height: 58px; width: auto; border-radius: 50%; }
+        .nav-logo-text { color: white; line-height: 1.2; }
+        .nav-logo-text strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+        .nav-logo-text small { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-give-btn { background: var(--crimson) !important; color: white !important; padding: 0.5rem 1.3rem; border-radius: 6px; font-weight: 600 !important; }
+        .nav-give-btn:hover { opacity: 0.88; }
 
-        .modern-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            max-height: 80px;
+        /* PAGE HERO */
+        .page-hero {
+            margin-top: 70px; min-height: 45vh; position: relative;
+            background: var(--navy); display: flex; align-items: center; justify-content: center; text-align: center;
             overflow: hidden;
         }
+        .page-hero-bg {
+            position: absolute; inset: 0;
+            background: url('images/poster.jpg') center/cover no-repeat; opacity: 0.2;
+        }
+        .page-hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(13,27,42,0.7) 0%, rgba(13,27,42,0.85) 100%);
+        }
+        .page-hero-content { position: relative; z-index: 1; padding: 3rem 2rem; max-width: 700px; }
+        .page-hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35);
+            color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.2rem;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem);
+            font-weight: 700; color: white; margin-bottom: 1rem;
+        }
+        .page-hero p { color: rgba(255,255,255,0.7); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
 
-        .nav-brand img {
-            height: 200px;
-            margin-right: 0;
-            vertical-align: middle;
-            transform: scale(0.8);
-            transform-origin: left center;
-        }
+        /* SECTION */
+        .section { padding: 5rem 6%; }
+        .section-label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--crimson); margin-bottom: 0.6rem; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 1rem; }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+        /* HISTORY */
+        .history { background: var(--white); }
+        .history-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .history-image { border-radius: 20px; overflow: hidden; height: 420px; position: relative; }
+        .history-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+        .history-image-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(13,27,42,0.85));
+            padding: 2rem 1.5rem 1.5rem; color: white;
         }
+        .history-image-caption strong { display: block; font-size: 1rem; }
+        .history-image-caption span { font-size: 0.82rem; color: var(--gold); }
+        .history-text p { color: var(--gray-700); line-height: 1.8; margin-bottom: 1.2rem; font-size: 0.97rem; }
+        .history-stat-row { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+        .history-stat { text-align: center; }
+        .history-stat strong { display: block; font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--crimson); }
+        .history-stat span { font-size: 0.82rem; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.06em; }
 
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
+        /* OBJECTIVES */
+        .objectives { background: var(--cream); }
+        .objectives-inner { max-width: 1100px; margin: 0 auto; }
+        .objectives-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .obj-card { padding: 2rem 1.5rem; border-radius: 14px; border: 1.5px solid var(--gray-100); background: var(--white); transition: border-color 0.25s, box-shadow 0.25s; }
+        .obj-card:hover { border-color: var(--crimson); box-shadow: 0 8px 30px rgba(192,57,43,0.08); }
+        .obj-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; }
+        .obj-card:nth-child(1) .obj-icon { background: rgba(192,57,43,0.1); color: var(--crimson); }
+        .obj-card:nth-child(2) .obj-icon { background: rgba(13,27,42,0.08); color: var(--navy); }
+        .obj-card:nth-child(3) .obj-icon { background: rgba(201,168,76,0.15); color: #a07b1e; }
+        .obj-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; }
+        .obj-desc { font-size: 0.9rem; color: var(--gray-700); line-height: 1.6; }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: scaleIn 0.8s ease-out 0.6s forwards;
-            opacity: 0;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.4);
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-
-        .about-hero {
-            height: 50vh;
-            background: linear-gradient(rgba(135, 206, 235, 0.7), rgba(255, 0, 0, 0.7)),
-                        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            margin-top: 64px;
-        }
-        .about-hero-content {
-            max-width: 700px;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .about-hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .about-hero p {
-            font-size: 1.2rem;
-        }
-        .about-section {
-            max-width: 900px;
-            margin: 3rem auto;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-            padding: 2.5rem 2rem;
-            animation: slideIn 1s ease-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .about-section h2 {
-            color: var(--primary-red);
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        .about-section p {
-            margin-bottom: 1.5rem;
-        }
-        .about-section ul {
-            list-style: none;
-            margin: 1.5rem 0;
-            padding: 0;
-        }
-        .about-section ul li {
-            margin-bottom: 1.2rem;
-            padding-left: 1.5rem;
-            position: relative;
-            line-height: 1.6;
-        }
-        .about-section ul li:before {
-            content: "•";
-            color: var(--primary-red);
-            font-size: 1.5rem;
-            position: absolute;
-            left: 0;
-            top: -0.2rem;
-        }
-        .about-section ul li strong {
-            color: var(--primary-red);
-            display: block;
-            margin-bottom: 0.3rem;
-            font-size: 1.1rem;
-        }
-        .leadership {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+        /* LEADERSHIP */
+        .leadership { background: var(--white); }
+        .leadership-inner { max-width: 1100px; margin: 0 auto; }
+        .leadership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
         .leader-card {
-            background: var(--light-gray);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--cream); border-radius: 16px; overflow: hidden;
+            border: 1.5px solid var(--gray-100); transition: transform 0.25s, box-shadow 0.25s;
         }
-        .leader-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        .leader-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
+        .leader-photo-wrap { height: 240px; overflow: hidden; position: relative; background: var(--navy); }
+        .leader-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+        .leader-body { padding: 1.5rem; }
+        .leader-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+        .leader-role { font-size: 0.82rem; font-weight: 600; color: var(--crimson); text-transform: uppercase; letter-spacing: 0.08em; }
+
+        /* CTA */
+        .cta-section { background: var(--navy); text-align: center; }
+        .cta-inner { max-width: 600px; margin: 0 auto; }
+        .cta-inner h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: white; margin-bottom: 1rem; }
+        .cta-inner p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; line-height: 1.7; }
+
+        /* BUTTONS */
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--crimson); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: background 0.2s, transform 0.2s; }
+        .btn-primary:hover { background: #a93226; transform: translateY(-2px); }
+        .btn-gold { background: var(--gold); color: var(--navy); }
+        .btn-gold:hover { background: #b8963e; }
+
+        /* FOOTER */
+        .footer { background: var(--navy); color: white; padding: 4rem 6% 0; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; }
+        .footer-brand p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin: 1rem 0 1.5rem; line-height: 1.7; max-width: 260px; }
+        .footer-social { display: flex; gap: 0.75rem; }
+        .footer-social a { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 0.9rem; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+        .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+        .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.7rem; }
+        .footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: white; }
+        .footer-contact-row { display: flex; gap: 0.7rem; align-items: flex-start; margin-bottom: 0.75rem; color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5; }
+        .footer-contact-row i { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 1.5rem 0; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+
+        @media (max-width: 900px) {
+            .history-inner { grid-template-columns: 1fr; }
+            .history-image { height: 280px; }
+            .objectives-grid { grid-template-columns: 1fr; }
+            .leadership-grid { grid-template-columns: 1fr 1fr; }
+            .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
         }
-        .leader-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border: 3px solid var(--primary-blue);
-        }
-        .leader-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .leader-role {
-            color: var(--primary-red);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-        .cta-section {
-            text-align: center;
-            margin: 4rem 0 2rem 0;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
-        }
-        .footer {
-            background: var(--text-color);
-            color: var(--white);
-            padding: 4rem 5% 0;
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding-bottom: 2rem;
-        }
-        .footer-section h3 {
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-        .footer-section p, .footer-section .footer-contact-row {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            margin-bottom: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.97rem;
-        }
-        .footer-contact-icon {
-            min-width: 22px;
-            text-align: center;
-            margin-top: 2px;
-        }
-        .footer-contact-email span {
-            white-space: nowrap;
-            overflow-wrap: anywhere;
-            font-size: 0.85rem;
-            letter-spacing: -0.01em;
-        }
-        .footer-section ul {
-            list-style: none;
-        }
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
-        }
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.97rem;
-        }
-        .footer-section a:hover {
-            color: var(--primary-red);
-        }
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
-            transition: transform 0.3s, color 0.3s;
-        }
-        .social-links a:hover {
-            color: var(--primary-red);
-            transform: translateY(-3px);
-        }
-        .footer-bottom {
-            text-align: center;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-        @media (max-width: 768px) {
-            .about-section { padding: 1.5rem 0.5rem; }
-            .footer-content { 
-                grid-template-columns: 1fr; 
-                text-align: center; 
-            }
-            .social-links { 
-                justify-content: center; 
-            }
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .leadership-grid { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <nav class="modern-nav">
-        <a href="index.html" class="nav-brand">
-            <img src="images/HOC.png" alt="Church Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="sermons.html">Sermons</a>
-            <a href="events.html">Events</a>
-            <a href="give.html">Give</a>
-            <a href="contact.html">Contact</a>
+
+<nav class="nav">
+    <a href="index.html" class="nav-logo">
+        <img src="images/HOC3.png" alt="House of Christ Logo" class="nav-logo-img">
+        <div class="nav-logo-text">
+            <strong>House of Christ</strong>
+            <small>International</small>
         </div>
-    </nav>
-    <section class="about-hero">
-        <div class="about-hero-content">
-            <h1>About House of Christ</h1>
-            <p>Discover our story, our mission, and the people who make House of Christ a welcoming home for all.</p>
-        </div>
-    </section>
-    <section class="about-section">
-        <h2>Our History</h2>
-        <div style="display: flex; align-items: center; margin-bottom: 0;">
-            <img src="images/pstken.jpg" alt="Pastor Kenneth Achuenu" style="width: 300px; border-radius: 10px; margin-right: 20px;">
-            <div>
-                <p>House of Christ was founded in 2013 by our current overseer Pastor Kenneth Achuenu and Pst Mrs Rose Achuenu Ogbehon in Verona, Italy. Since then, the ministry has flourished, and we have expanded our mission to bring the message of our Lord Jesus Christ to the UK. The church in Italy is now growing at a rapid rate, and we have decided to move to Newcastle, United Kingdom, to continue spreading the message of our Lord Jesus Christ.</p>
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="sermons.html">Sermons</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+        <a href="give.html" class="nav-give-btn">Give <i class="fas fa-heart" style="font-size:0.75rem;"></i></a>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+        <div class="page-hero-eyebrow"><i class="fas fa-church"></i> Our Story</div>
+        <h1>About House of Christ</h1>
+        <p>Discover our history, our mission, and the people who make House of Christ a welcoming home for all.</p>
+    </div>
+</section>
+
+<!-- HISTORY -->
+<section class="section history">
+    <div class="history-inner">
+        <div class="history-image">
+            <img src="images/pstken.jpg" alt="Pastor Kenneth Achuenu">
+            <div class="history-image-caption">
+                <strong>Pastor Kenneth Achuenu</strong>
+                <span>General Overseer &amp; Founder</span>
             </div>
         </div>
-        <p style="margin-top: 0px;"><strong>Pastor Kenneth Achuenu</strong></p>
-        <h2>Our Objectives</h2>
-        <ul>
-            <li><strong>Community Outreach:</strong> Engage with local communities to spread the love of Christ through service and support.</li>
-            <li><strong>Spiritual Growth:</strong> Foster an environment where individuals can deepen their relationship with God and grow in their faith.</li>
-            <li><strong>Global Impact:</strong> Extend our ministry beyond borders to reach and touch lives around the world with the message of hope and salvation.</li>
-        </ul>
-        <h2>Leadership</h2>
-        <div class="leadership">
+        <div class="history-text">
+            <span class="section-label">Our History</span>
+            <h2 class="section-title">From Italy to the UK — A Ministry on the Move</h2>
+            <p>House of Christ was founded in 2013 by Pastor Kenneth Achuenu and Pst Mrs Rose Achuenu Ogbehon in Verona, Italy. What began as a small gathering of believers has flourished into a growing international ministry.</p>
+            <p>With the Italian church continuing to grow at a rapid rate, God opened a door to expand the mission to Newcastle, United Kingdom — bringing the message of our Lord Jesus Christ to a new city and a new generation.</p>
+            <p>Today, House of Christ International serves two thriving congregations — one in Verona, Italy, and one in Newcastle, UK — united by one vision: to make disciples, reach the nations, and glorify God.</p>
+            <div class="history-stat-row">
+                <div class="history-stat"><strong>2013</strong><span>Founded</span></div>
+                <div class="history-stat"><strong>2</strong><span>Locations</span></div>
+                <div class="history-stat"><strong>Italy &amp; UK</strong><span>Nations Reached</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section class="section objectives">
+    <div class="objectives-inner">
+        <span class="section-label">What We Believe</span>
+        <h2 class="section-title">Our Objectives</h2>
+        <div class="objectives-grid">
+            <div class="obj-card">
+                <div class="obj-icon"><i class="fas fa-hands-helping"></i></div>
+                <div class="obj-title">Community Outreach</div>
+                <p class="obj-desc">Engage with local communities to spread the love of Christ through service, support, and practical care for those in need.</p>
+            </div>
+            <div class="obj-card">
+                <div class="obj-icon"><i class="fas fa-seedling"></i></div>
+                <div class="obj-title">Spiritual Growth</div>
+                <p class="obj-desc">Foster an environment where individuals can deepen their relationship with God and grow in their faith through the Word and worship.</p>
+            </div>
+            <div class="obj-card">
+                <div class="obj-icon"><i class="fas fa-globe"></i></div>
+                <div class="obj-title">Global Impact</div>
+                <p class="obj-desc">Extend our ministry beyond borders to reach and touch lives around the world with the message of hope and salvation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="section leadership">
+    <div class="leadership-inner">
+        <span class="section-label">Meet the Team</span>
+        <h2 class="section-title">Our Leadership</h2>
+        <div class="leadership-grid">
             <div class="leader-card">
-                <img src="images/pstken.jpg" alt="Pastor Kenneth Achuenu" class="leader-photo" style="object-position: center 30%;">
-                <div class="leader-name">Pastor Kenneth Achuenu</div>
-                <div class="leader-role">General Overseer</div>
+                <div class="leader-photo-wrap"><img src="images/pstken.jpg" alt="Pastor Kenneth Achuenu"></div>
+                <div class="leader-body">
+                    <div class="leader-name">Pastor Kenneth Achuenu</div>
+                    <div class="leader-role">General Overseer</div>
+                </div>
             </div>
             <div class="leader-card">
-                <img src="images/pstrose.jpg" alt="Pst Mrs Rose Achuenu Ogbehon" class="leader-photo" style="object-position: center 30%;">
-                <div class="leader-name">Pst Mrs Rose Achuenu Ogbehon</div>
-                <div class="leader-role">Associate Pastor</div>
+                <div class="leader-photo-wrap"><img src="images/pstrose.jpg" alt="Pst Mrs Rose Achuenu Ogbehon"></div>
+                <div class="leader-body">
+                    <div class="leader-name">Pst Mrs Rose Achuenu Ogbehon</div>
+                    <div class="leader-role">Associate Pastor</div>
+                </div>
             </div>
             <div class="leader-card">
-                <img src="images/evanglucky.jpg" alt="Evangelist Lucky Enu" class="leader-photo" style="object-position: center 30%;">
-                <div class="leader-name">Evangelist Lucky Enu</div>
-                <div class="leader-role">Associate Pastor</div>
-            </div>
-        </div>
-    </section>
-    <section class="cta-section">
-        <div style="max-width: 600px; margin: 0 auto; padding: 2.5rem 2rem; background: var(--white); border-radius: 20px; color: var(--text-color); text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.08); position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));"></div>
-            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--primary-red); font-weight: 700;">Come Visit Us!</h2>
-            <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-color); line-height: 1.5; max-width: 500px; margin-left: auto; margin-right: auto;">We would love to meet you and your family. Join us for a service this Sunday or connect with us online.</p>
-            <a href="contact.html" class="cta-button" style="background: linear-gradient(90deg, var(--primary-red), var(--primary-blue)); color: var(--white); font-weight: 600; padding: 1rem 2rem; font-size: 1rem; border: none; box-shadow: 0 8px 20px rgba(255, 0, 0, 0.15);">Plan Your Visit</a>
-        </div>
-    </section>
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <div class="footer-contact-row"><span class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></span>89 West View, Newcastle, Elswick NE4 7RR</div>
-                <div class="footer-contact-row"><span class="footer-contact-icon"><i class="fas fa-phone"></i></span>+447724367363</div>
-                <div class="footer-contact-row footer-contact-email"><span class="footer-contact-icon"><i class="fas fa-envelope"></i></span><span>houseofchristinternational@gmail.com</span></div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="sermons.html">Sermons</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="give.html">Give</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Service Times</h3>
-                <p>Sunday Service: 12 PM - 2 PM</p>
-            </div>
-            <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
+                <div class="leader-photo-wrap"><img src="images/evanglucky.jpg" alt="Evangelist Lucky Enu"></div>
+                <div class="leader-body">
+                    <div class="leader-name">Evangelist Lucky Enu</div>
+                    <div class="leader-role">Associate Pastor</div>
                 </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 House Of Christ. All rights reserved.</p>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section cta-section">
+    <div class="cta-inner">
+        <span class="section-label" style="color:var(--gold);">Come Visit Us</span>
+        <h2>We'd Love to Meet You</h2>
+        <p>Join us for a service this Sunday or connect with us online. Everyone is welcome at House of Christ.</p>
+        <a href="contact.html" class="btn-primary btn-gold">Plan Your Visit <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <img src="images/HOC3.png" alt="House of Christ Logo" style="height:52px; width:auto; border-radius:50%; margin-bottom:0.75rem;">
+            <p>A community of believers in Newcastle, UK — committed to worship, the Word, and the world.</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>Pages</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="#">Sunday 12 PM – 2 PM</a></li>
+                <li><a href="#">Live on YouTube</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <div class="footer-contact-row"><i class="fas fa-map-marker-alt"></i>89 West View, Newcastle, Elswick NE4 7RR</div>
+            <div class="footer-contact-row"><i class="fas fa-phone"></i>+44 7724 367363</div>
+            <div class="footer-contact-row"><i class="fas fa-envelope"></i>houseofchristinternational@gmail.com</div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 House of Christ International. All rights reserved.</p>
+        <p>Newcastle, United Kingdom</p>
+    </div>
+</footer>
+
 </body>
-</html> 
+</html>

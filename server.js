@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import cors from 'cors';
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
@@ -57,9 +57,9 @@ async function checkLiveStreamStatus() {
     }
 }
 
-// Serve the main index page for all root requests
+// Serve the main index page
 app.get('/', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'opening-soon.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Add a new endpoint for live stream status
@@ -306,9 +306,9 @@ app.post('/api/save-form-data', async (req, res) => {
     }
 });
 
-// Catch-all route to redirect all other routes to coming soon page
+// Catch-all â€” serve index for any unmatched routes
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'opening-soon.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 const port = process.env.PORT || 3000;

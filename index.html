@@ -1,1202 +1,1153 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House Of Christ - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>House Of Christ International - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --navy:    #0D1B2A;
+            --crimson: #C0392B;
+            --gold:    #C9A84C;
+            --cream:   #FAF8F5;
+            --white:   #FFFFFF;
+            --gray-50: #F9F9F7;
+            --gray-100:#F0EDE8;
+            --gray-400:#9E9790;
+            --gray-700:#4A4540;
+            --text:    #1A1612;
         }
 
-        :root {
-            --primary-red: #FF0000; /* Bright red from logo */
-            --primary-blue: #87CEEB; /* Sky blue from logo */
-            --white: #FFFFFF;
-            --light-gray: #F5F5F5;
-            --gold: #FFD700; /* Subtle gold accent */
-            --text-color: #000000; /* Black text */
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--text);
             line-height: 1.6;
-            background-color: var(--light-gray);
-            color: var(--text-color);
         }
 
-        .modern-nav {
+        /* ===== NAV ===== */
+        .nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 5%;
+            background: rgba(13, 27, 42, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 0 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            height: 70px;
             z-index: 1000;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.2);
         }
 
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
+        .nav-logo {
             display: flex;
             align-items: center;
-            max-height: 80px;
-            overflow: hidden;
+            gap: 0.75rem;
+            text-decoration: none;
         }
 
-        .nav-brand img {
-            height: 200px;
-            margin-right: 0;
-            vertical-align: middle;
-            transform: scale(0.8);
-            transform-origin: left center;
+        .nav-logo-img {
+            height: 58px;
+            width: auto;
+            display: block;
+            border-radius: 50%;
+        }
+
+        .nav-logo-text {
+            color: white;
+            line-height: 1.2;
+        }
+        .nav-logo-text strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+        }
+        .nav-logo-text small {
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
+            align-items: center;
             gap: 2rem;
         }
 
         .nav-links a {
-            color: var(--text-color);
+            color: rgba(255,255,255,0.82);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+
+        .nav-give-btn {
+            background: var(--crimson) !important;
+            color: white !important;
+            padding: 0.5rem 1.3rem;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            transition: opacity 0.2s !important;
+        }
+        .nav-give-btn:hover { opacity: 0.88; color: white !important; }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            margin-top: 70px;
+            position: relative;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('images/poster.jpg') center/cover no-repeat;
+            opacity: 0.28;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, rgba(13,27,42,0.98) 45%, rgba(13,27,42,0.3) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 620px;
+            padding: 4rem 6%;
+            padding-bottom: 6rem;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(201,168,76,0.12);
+            border: 1px solid rgba(201,168,76,0.35);
+            color: var(--gold);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 1.4rem;
+            animation: fadeInUp 0.9s ease 0.2s both;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            color: rgba(255,255,255,0.72);
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            max-width: 480px;
+            line-height: 1.7;
+            animation: fadeInUp 0.9s ease 0.35s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.9s ease 0.5s both;
+        }
+
+        .hero-meta {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(13,27,42,0.9);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(201,168,76,0.2);
+            padding: 1.1rem 6%;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.88rem;
+        }
+        .hero-meta-item i { color: var(--gold); }
+        .hero-meta-item strong { color: white; }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            background: var(--crimson);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: #a93226; transform: translateY(-2px); }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            color: white;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, background 0.2s;
+            cursor: pointer;
+            background: transparent;
+        }
+        .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+        /* ===== LIVE BANNER ===== */
+        .live-banner {
+            background: linear-gradient(90deg, var(--crimson) 0%, #8B1A1A 100%);
+            padding: 1rem 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .live-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.18);
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+            color: white;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .live-dot {
+            width: 8px; height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .live-banner-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .live-banner-text strong { color: white; }
+
+        .live-banner-btn {
+            background: white;
+            color: var(--crimson);
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+        }
+        .live-banner-btn:hover { opacity: 0.88; }
+
+        /* ===== SECTION HELPERS ===== */
+        .section { padding: 5rem 6%; }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--gray-700);
+            max-width: 540px;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ===== QUICK LINKS ===== */
+        .quick-links { background: var(--white); }
+        .quick-links-inner { max-width: 1200px; margin: 0 auto; }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .qcard {
+            border-radius: 16px;
+            padding: 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .qcard:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+
+        .qcard-give { background: linear-gradient(135deg, var(--navy) 0%, #1a2f45 100%); color: white; }
+        .qcard-scripture { background: var(--cream); border: 1.5px solid var(--gray-100); }
+        .qcard-event { background: linear-gradient(135deg, var(--crimson) 0%, #8B1A1A 100%); color: white; }
+
+        .qcard-icon {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+        }
+        .qcard-give .qcard-icon { background: rgba(201,168,76,0.2); color: var(--gold); }
+        .qcard-scripture .qcard-icon { background: var(--navy); color: var(--gold); }
+        .qcard-event .qcard-icon { background: rgba(255,255,255,0.2); color: white; }
+
+        .qcard-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .qcard-scripture .qcard-label { color: var(--crimson); opacity: 1; }
+
+        .qcard-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .qcard-scripture .qcard-heading { color: var(--navy); }
+
+        .qcard blockquote {
+            font-size: 0.97rem;
+            color: var(--gray-700);
+            border-left: 3px solid var(--gold);
+            padding-left: 1rem;
+            font-style: italic;
+            line-height: 1.65;
+        }
+        .qcard blockquote cite {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--crimson);
+        }
+
+        .qcard-meta { font-size: 0.88rem; opacity: 0.85; line-height: 1.5; }
+
+        .qcard-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: auto;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            text-decoration: none;
+            align-self: flex-start;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .qcard-btn:hover { opacity: 0.9; transform: translateX(3px); }
+        .qcard-give .qcard-btn { background: var(--gold); color: var(--navy); }
+        .qcard-scripture .qcard-btn { background: var(--navy); color: white; }
+        .qcard-event .qcard-btn { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); }
+
+        /* ===== LIVE STREAM ===== */
+        .livestream { background: var(--navy); color: white; }
+        .livestream-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .livestream .section-label { color: var(--gold); }
+        .livestream .section-title { color: white; }
+
+        .stream-frame {
+            background: #0a1520;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            border: 1px solid rgba(255,255,255,0.08);
             position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
+        .stream-frame iframe {
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
+            inset: 0;
             width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                        url('images/poster.jpg');
-            background-size: cover;
-            background-position: center;
+        .stream-offline {
+            position: absolute;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: var(--white);
-            padding: 0 1rem;
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: fadeIn 2s ease-in-out;
-            color: var(--white);
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            animation: fadeIn 2s ease-in-out 0.5s forwards;
-            opacity: 0;
-            color: var(--white);
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: scaleIn 0.8s ease-out 0.6s forwards;
-            opacity: 0;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.4);
-        }
-
-        .features {
-            padding: 5rem 5%;
-            background: var(--white);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--text-color);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: var(--white);
             padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-            border: 1px solid var(--light-gray);
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .stream-offline i { font-size: 3rem; color: rgba(255,255,255,0.2); }
+        .stream-offline h3 { color: rgba(255,255,255,0.7); font-size: 1rem; font-weight: 500; }
+        .stream-offline p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+
+        .stream-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-top: 5rem;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border-color: var(--primary-red);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-
-        .feature-card p {
-            color: var(--text-color);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .events {
-            padding: 5rem 5%;
-            background: var(--light-gray);
-        }
-
-        .event-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            border: 1px solid var(--light-gray);
-        }
-
-        .event-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            border-color: var(--primary-red);
-        }
-
-        .event-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .event-content {
+        .stream-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
             padding: 1.5rem;
         }
 
-        .event-date {
-            color: var(--primary-red);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-title {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text-color);
-        }
-
-        .event-description {
-            color: var(--text-color);
-            margin-bottom: 1rem;
-        }
-
-        .event-link {
-            color: var(--primary-red);
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-block;
-            transition: color 0.3s;
-        }
-
-        .event-link:hover {
+        .stream-card h4 {
             color: var(--gold);
-        }
-
-        /* New Styles for Live Stream Section */
-        .live-stream {
-            padding: 5rem 5%;
-            background: var(--white);
-        }
-
-        .stream-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .stream-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .stream-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 20px;
-        }
-
-        .stream-info {
-            background: var(--light-gray);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .stream-info h3 {
-            font-size: 1.8rem;
-            color: var(--primary-red);
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
 
-        .stream-info p {
-            color: var(--text-color);
-            margin-bottom: 2rem;
-        }
-
-        .stream-schedule {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .schedule-item {
+        .schedule-row {
             display: flex;
             align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.8);
+        }
+        .schedule-row:last-child { border: none; }
+        .schedule-row i { color: var(--crimson); width: 16px; text-align: center; }
+
+        .refresh-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(201,168,76,0.15);
+            border: 1px solid rgba(201,168,76,0.3);
+            color: var(--gold);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .refresh-button:hover { background: rgba(201,168,76,0.25); }
+        .refresh-button i { transition: transform 0.4s; }
+        .refresh-button:hover i { transform: rotate(180deg); }
+
+        /* ===== SERMONS ===== */
+        .sermons { background: var(--gray-50); }
+        .sermons-inner { max-width: 1200px; margin: 0 auto; }
+
+        .sermons-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
             gap: 1rem;
-            color: var(--text-color);
         }
 
-        .schedule-item i {
-            color: var(--primary-red);
-            font-size: 1.2rem;
-        }
-
-        @media (max-width: 768px) {
-            .stream-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Tithes & Offerings Section */
-        .giving-section {
-            padding: 5rem 5%;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
-            color: var(--white);
-        }
-
-        .giving-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .giving-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .giving-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .giving-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .giving-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Updated Sermon Archive Section */
-        .sermon-archive {
-            padding: 3rem 5%;
-            background: var(--light-gray);
-        }
-
-        .sermon-archive .section-title {
-            margin-bottom: 1.5rem;
-        }
-
-        .sermon-grid {
+        .sermons-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            justify-items: center;
-            max-width: 900px;
-            margin: 0 auto;
-            margin-top: 0;
+            gap: 1.5rem;
         }
 
         .sermon-card {
             background: var(--white);
-            border-radius: 18px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-            transition: transform 0.3s, box-shadow 0.3s;
-            padding: 0.5rem 1.2rem 1.2rem 1.2rem;
-            max-width: 320px;
-            min-width: 0;
-            width: 100%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.25s, box-shadow 0.25s;
             opacity: 0;
-            transform: translateY(24px);
-            animation: fadeInUp 0.7s cubic-bezier(.23,1.01,.32,1) forwards;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
         }
+        .sermon-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
 
-        .sermon-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.13);
-        }
-
-        .sermon-thumbnail {
+        .sermon-thumb {
             width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .sermon-info {
-            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-            text-align: left;
-        }
-
-        .sermon-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
-            color: var(--text-color);
-            text-align: left;
-        }
-
-        .sermon-date {
-            color: var(--primary-red);
-            font-size: 0.9rem;
-            margin-bottom: 0.3rem;
-            text-align: left;
-        }
-
-        .sermon-description {
-            color: var(--text-color);
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            text-align: left;
-        }
-
-        .sermon-link {
-            display: inline-block;
-            padding: 0.35rem 1rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            border: none;
-            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
-            transition: background 0.3s, color 0.3s, transform 0.2s;
-            margin-top: 0.3rem;
-            cursor: pointer;
-        }
-
-        .sermon-link:hover {
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
-            color: var(--white);
-            transform: translateY(-2px) scale(1.04);
-            box-shadow: 0 6px 18px rgba(255,0,0,0.13);
-        }
-
-        @media (max-width: 900px) {
-            .sermon-grid {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
-                max-width: 98vw;
-            }
-            .sermon-card {
-                max-width: 98vw;
-            }
-        }
-
-        .footer {
-            background: var(--text-color);
-            color: var(--white);
-            padding: 4rem 5% 0;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-
-        .footer-section p, .footer-section .footer-contact-row {
+            height: 170px;
+            background: linear-gradient(135deg, #1a2f45, var(--navy));
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            margin-bottom: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.97rem;
-        }
-        .footer-contact-icon {
-            min-width: 22px;
-            text-align: center;
-            margin-top: 2px;
-        }
-        .footer-contact-email span {
-            white-space: nowrap;
-            overflow-wrap: anywhere;
-            font-size: 0.85rem;
-            letter-spacing: -0.01em;
-        }
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: var(--primary-red);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-red);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-        }
-
-        /* Overhauled Card Area: Three Distinct Mini Cards in a Soft Container */
-        .info-card-overhaul-bg {
-            max-width: 1200px;
-            margin: 3.5rem auto 2.5rem auto;
-            background: linear-gradient(120deg, #fafdff 60%, #f3f6ff 100%);
-            border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-            padding: 2.5rem 1.5rem 3.5rem 1.5rem;
+            justify-content: center;
             position: relative;
-            overflow: visible;
+            overflow: hidden;
         }
-        .info-card-overhaul-flex {
-            display: flex;
-            gap: 2.5rem;
-            justify-content: space-between;
-            align-items: stretch;
+
+        .sermon-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        .sermon-thumb-icon {
+            font-size: 2.5rem;
+            color: rgba(255,255,255,0.15);
             position: relative;
             z-index: 1;
         }
-        .mini-card {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 6px 32px rgba(0,0,0,0.10);
-            padding: 2.2rem 1.5rem 2.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            min-width: 0;
-            width: 100%;
-            max-width: 340px;
-            position: relative;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .mini-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.13);
-            z-index: 2;
-        }
-        .mini-card-give {
-            border-top: 5px solid var(--primary-red);
-        }
-        .mini-card-scripture {
-            border-top: 5px solid var(--primary-blue);
-        }
-        .mini-card-event {
-            border-top: 5px solid var(--gold);
-            align-items: flex-start !important;
-            text-align: left !important;
-        }
-        .mini-card-icon {
-            width: 60px;
-            height: 60px;
+
+        .sermon-play {
+            position: absolute;
+            width: 48px; height: 48px;
+            background: var(--crimson);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 2.2rem;
-            margin-bottom: 1.1rem;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-            background: linear-gradient(135deg, var(--primary-red), var(--gold));
-        }
-        .mini-card-scripture .mini-card-icon {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
-        }
-        .mini-card-event .mini-card-icon,
-        .mini-card-event .mini-card-title {
-            align-self: center !important;
-            text-align: center !important;
-        }
-        .mini-card-title {
-            font-weight: 800;
-            font-size: 1.22rem;
-            margin-bottom: 0.7rem;
-            text-align: center;
-            letter-spacing: -0.5px;
-        }
-        .mini-card-desc {
-            font-size: 1.05rem;
-            color: #444;
-            margin-bottom: 1.1rem;
-            text-align: center;
-        }
-        .mini-card-btn {
-            margin-top: 0.7rem;
-            padding: 0.8rem 1.5rem;
-            font-size: 1.08rem;
-            opacity: 1;
-            animation: none;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
-            transition: background 0.3s, color 0.3s, transform 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .mini-card-btn:hover {
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
-            color: #fff;
-            transform: translateY(-2px) scale(1.04);
-            box-shadow: 0 6px 18px rgba(255,0,0,0.13);
-        }
-        .mini-card-btn-event {
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
-        }
-        .mini-card-scripture-text {
-            font-size: 1.05rem;
-            color: #444;
-            margin-bottom: 0.5rem;
-            border-left: 4px solid var(--primary-blue);
-            padding-left: 1rem;
-            background: #f7faff;
-            border-radius: 8px;
-            text-align: left;
-            font-style: italic;
-        }
-        .mini-card-scripture-text span {
-            font-size: 1rem;
-            color: #888;
-            display: block;
-            margin-top: 0.7rem;
-            font-style: normal;
-        }
-        .mini-card-event-title {
-            font-weight: 700;
-            color: var(--primary-red);
-            font-size: 1.08rem;
-            margin-top: 0.5rem;
-        }
-        .mini-card-event-desc {
-            color: #333;
-            font-size: 1.05rem;
-            margin-bottom: 0.7rem;
-        }
-        @media (max-width: 1100px) {
-            .info-card-overhaul-bg { padding: 1.5rem 0.5rem 2rem 0.5rem; }
-        }
-        @media (max-width: 900px) {
-            .info-card-overhaul-flex {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            .mini-card {
-                margin: 0 auto;
-                max-width: 400px;
-            }
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-        @keyframes fadeInUpSection {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: none; }
-        }
-        @keyframes fadeInSection {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .section-animate {
-            opacity: 0;
-            animation: fadeInUpSection 1.1s cubic-bezier(.23,1.01,.32,1) forwards;
-        }
-        .section-animate-delayed {
-            opacity: 0;
-            animation: fadeInUpSection 1.1s cubic-bezier(.23,1.01,.32,1) 0.4s forwards;
-        }
-        .page-fadein {
-            opacity: 0;
-            animation: fadeInSection 1.2s cubic-bezier(.23,1.01,.32,1) 0.1s forwards;
-        }
-        #next-event-card, #next-event-card * {
-            text-align: left !important;
-            align-items: flex-start !important;
-        }
-        #next-event-card .mini-card-btn {
-            margin-left: 0 !important;
-            display: inline-block;
-        }
-        .refresh-button {
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
             color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 2;
+        }
+        .sermon-card:hover .sermon-play { opacity: 1; }
+
+        .sermon-body { padding: 1.25rem; }
+
+        .sermon-date {
+            font-size: 0.75rem;
             font-weight: 600;
-            cursor: pointer;
+            color: var(--crimson);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.4rem;
+        }
+
+        .sermon-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            line-height: 1.35;
+        }
+
+        .sermon-desc {
+            font-size: 0.85rem;
+            color: var(--gray-700);
+            line-height: 1.55;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .sermon-link {
             display: inline-flex;
             align-items: center;
+            gap: 0.4rem;
+            color: var(--crimson);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+        .sermon-link:hover { gap: 0.7rem; }
+
+        /* ===== OBJECTIVES ===== */
+        .objectives { background: var(--white); }
+        .objectives-inner { max-width: 1200px; margin: 0 auto; }
+
+        .objectives-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .objectives-image {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 340px;
+            background: url('images/poster.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        .objectives-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(192,57,43,0.55), rgba(13,27,42,0.4));
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+
+        .objectives-image-tag {
+            background: white;
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .obj-card {
+            padding: 1.8rem 1.5rem;
+            border-radius: 14px;
+            border: 1.5px solid var(--gray-100);
+            background: var(--cream);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .obj-card:hover { border-color: var(--crimson); box-shadow: 0 8px 30px rgba(192,57,43,0.08); }
+
+        .obj-icon {
+            width: 48px; height: 48px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .obj-card:nth-child(1) .obj-icon { background: rgba(192,57,43,0.1); color: var(--crimson); }
+        .obj-card:nth-child(2) .obj-icon { background: rgba(13,27,42,0.08); color: var(--navy); }
+        .obj-card:nth-child(3) .obj-icon { background: rgba(201,168,76,0.15); color: #a07b1e; }
+
+        .obj-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .obj-desc { font-size: 0.88rem; color: var(--gray-700); line-height: 1.6; }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--navy); color: white; padding: 4rem 6% 0; }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.88rem;
+            margin: 1rem 0 1.5rem;
+            line-height: 1.7;
+            max-width: 260px;
+        }
+
+        .footer-social { display: flex; gap: 0.75rem; }
+        .footer-social a {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+        .footer-social a:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.7rem; }
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+        .footer-col ul li a:hover { color: white; }
+
+        .footer-contact-row {
+            display: flex;
+            gap: 0.7rem;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .footer-contact-row i { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 1.5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(255,0,0,0.1);
+        }
+        .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: none; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: none; }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.3); }
         }
 
-        .refresh-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255,0,0,0.2);
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .objectives-grid { grid-template-columns: 1fr 1fr; }
         }
 
-        .refresh-button:active {
-            transform: translateY(0);
+        @media (max-width: 900px) {
+            .quick-links-grid { grid-template-columns: 1fr; }
+            .sermons-grid { grid-template-columns: 1fr 1fr; }
+            .objectives-layout { grid-template-columns: 1fr; }
+            .objectives-image { height: 220px; }
+            .livestream-inner { grid-template-columns: 1fr; }
+            .stream-sidebar { padding-top: 0; }
+            .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .hero-meta { gap: 1.5rem; }
         }
 
-        .refresh-button i {
-            transition: transform 0.3s ease;
-        }
-
-        .refresh-button:hover i {
-            transform: rotate(180deg);
-        }
-
-        #refresh-stream-sidebar {
-            width: 100%;
-            justify-content: center;
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .sermons-grid { grid-template-columns: 1fr; }
+            .objectives-grid { grid-template-columns: 1fr; }
+            .footer-inner { grid-template-columns: 1fr; }
+            .sermons-header { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
-    <nav class="modern-nav">
-        <a href="index.html" class="nav-brand">
-            <img src="images/HOC.png" alt="Church Logo">
-        </a>
-        <div class="nav-links">
-            <a href="church-designs.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="sermons.html">Sermons</a>
-            <a href="events.html">Events</a>
-            <a href="give.html">Give</a>
-            <a href="contact.html">Contact</a>
-        </div>
-    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 style="font-size: 4.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); animation: fadeIn 2s ease-in-out;">Welcome to House of Christ</h1>
-            <p style="font-size: 1.4rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); animation: fadeIn 2s ease-in-out 0.5s forwards; opacity: 0;">Join us in worship and fellowship as we grow together in faith and love. Experience the power of community and the joy of serving together.</p>
-            <a href="#" class="cta-button" style="animation: fadeIn 2s ease-in-out 1s forwards; opacity: 0;">Join Us This Sunday</a>
+<!-- ===== NAV ===== -->
+<nav class="nav">
+    <a href="index.html" class="nav-logo">
+        <img src="images/HOC3.png" alt="House of Christ Logo" class="nav-logo-img">
+        <div class="nav-logo-text">
+            <strong>House of Christ</strong>
+            <small>International</small>
         </div>
-    </section>
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="sermons.html">Sermons</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+        <a href="give.html" class="nav-give-btn">Give <i class="fas fa-heart" style="font-size:0.75rem;"></i></a>
+    </div>
+</nav>
 
-    <section class="live-stream">
-        <div class="section-title">Watch Live</div>
-        <div class="stream-container">
-            <div class="stream-wrapper">
-                <div id="live-stream-container">
-                    <div id="stream-placeholder" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border-radius: 20px;">
-                        <div style="text-align: center; padding: 2rem;">
-                            <i class="fas fa-video" style="font-size: 3rem; color: #666; margin-bottom: 1rem;"></i>
-                            <h3 style="color: #333; margin-bottom: 0.5rem;">Live stream has ended</h3>
-                            <p style="color: #666;">Check back during our service times</p>
-                            <button id="refresh-stream" class="refresh-button" onclick="checkLiveStream()">
-                                <i class="fas fa-sync-alt"></i> Check for Live Stream
-                            </button>
-                        </div>
-                    </div>
-                    <iframe 
-                        id="youtube-player"
-                        width="100%" 
-                        height="600" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        style="display: none;">
-                    </iframe>
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-eyebrow">
+            <i class="fas fa-church" style="font-size:0.85rem;"></i>
+            Newcastle, United Kingdom
+        </div>
+        <h1>A Place to<br><em>Encounter</em> God<br>and Find Family</h1>
+        <p class="hero-sub">House of Christ International is a vibrant community of believers committed to worship, the Word, and reaching the world with the love of Christ.</p>
+        <div class="hero-actions">
+            <a href="contact.html" class="btn-primary"><i class="fas fa-calendar-check"></i> Join Us This Sunday</a>
+            <button class="btn-outline" onclick="document.querySelector('.livestream').scrollIntoView({behavior:'smooth'})"><i class="fas fa-play"></i> Watch Live</button>
+        </div>
+    </div>
+    <div class="hero-meta">
+        <div class="hero-meta-item"><i class="fas fa-clock"></i><span><strong>Sunday Service</strong> â€” 12 PM to 2 PM</span></div>
+        <div class="hero-meta-item"><i class="fas fa-map-marker-alt"></i><span><strong>89 West View</strong>, Newcastle, NE4 7RR</span></div>
+        <div class="hero-meta-item"><i class="fab fa-youtube"></i><span><strong>Live online</strong> every Sunday</span></div>
+    </div>
+</section>
+
+<!-- ===== LIVE BANNER (shown when stream is live) ===== -->
+<div class="live-banner" id="live-banner" style="display:none;">
+    <div class="live-pill"><div class="live-dot"></div> Live Now</div>
+    <p class="live-banner-text"><strong>Sunday Service</strong> â€” We're live right now! Join us in worship from wherever you are.</p>
+    <a href="#livestream-section" class="live-banner-btn">Watch Live Stream â†’</a>
+</div>
+
+<!-- ===== QUICK LINKS ===== -->
+<section class="section quick-links">
+    <div class="quick-links-inner">
+        <span class="section-label">Get Involved</span>
+        <h2 class="section-title">Everything You Need,<br>Right Here</h2>
+        <div class="quick-links-grid">
+            <div class="qcard qcard-give">
+                <div class="qcard-icon"><i class="fas fa-donate"></i></div>
+                <div class="qcard-label">Tithes &amp; Offerings</div>
+                <div class="qcard-heading">Support the Ministry</div>
+                <p class="qcard-meta">Your generosity enables us to serve our community, run outreach programmes, and spread the gospel locally and globally.</p>
+                <a href="give.html" class="qcard-btn">Give Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="qcard qcard-scripture">
+                <div class="qcard-icon"><i class="fas fa-book-open"></i></div>
+                <div class="qcard-label">Scripture of the Day</div>
+                <div class="qcard-heading" style="color:var(--navy);">Today's Word</div>
+                <blockquote>"For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."<cite>â€” Jeremiah 29:11</cite></blockquote>
+            </div>
+            <div class="qcard qcard-event">
+                <div class="qcard-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="qcard-label">Coming Up</div>
+                <div class="qcard-heading">Next Event</div>
+                <div id="next-event-card" class="qcard-meta">Loading...</div>
+                <a href="events.html" class="qcard-btn">See All Events <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== LIVE STREAM ===== -->
+<section class="section livestream" id="livestream-section">
+    <div class="livestream-inner">
+        <div>
+            <span class="section-label">Live &amp; On Demand</span>
+            <h2 class="section-title">Watch Our Services<br>From Anywhere</h2>
+            <p class="section-desc" style="color:rgba(255,255,255,0.6); margin-bottom:2rem;">Can't make it in person? Join us online every Sunday. All past services are also available to watch back at any time.</p>
+            <div class="stream-frame">
+                <div class="stream-offline" id="stream-placeholder">
+                    <i class="fas fa-video"></i>
+                    <h3>Live stream has ended</h3>
+                    <p>Check back during our service times</p>
+                    <button class="refresh-button" onclick="checkLiveStream()">
+                        <i class="fas fa-sync-alt"></i> Check for Live Stream
+                    </button>
+                </div>
+                <iframe id="youtube-player" style="display:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="stream-sidebar">
+            <div class="stream-card">
+                <h4>Service Schedule</h4>
+                <div class="schedule-row"><i class="fas fa-church"></i><span>Sunday Service Â· 12 PM â€“ 2 PM</span></div>
+                <div class="schedule-row"><i class="fas fa-bible"></i><span>Bible Study Â· Wednesdays 7 PM</span></div>
+                <div class="schedule-row"><i class="fab fa-youtube"></i><span>Also live on YouTube</span></div>
+            </div>
+            <div class="stream-card">
+                <h4>Watch Past Sermons</h4>
+                <p style="color:rgba(255,255,255,0.55); font-size:0.88rem; line-height:1.6; margin-bottom:1.2rem;">Browse our full archive of teachings, available to watch or listen any time.</p>
+                <a href="sermons.html" class="btn-primary" style="font-size:0.85rem;"><i class="fas fa-film"></i> Sermon Archive</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SERMON ARCHIVE ===== -->
+<section class="section sermons">
+    <div class="sermons-inner">
+        <div class="sermons-header">
+            <div>
+                <span class="section-label">Recent Messages</span>
+                <h2 class="section-title">Latest Sermons</h2>
+            </div>
+            <a href="sermons.html" class="btn-primary" style="white-space:nowrap; background:var(--navy);">View All Sermons <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div id="sermon-archive-grid" class="sermons-grid"></div>
+    </div>
+</section>
+
+<!-- ===== OBJECTIVES ===== -->
+<section class="section objectives">
+    <div class="objectives-inner">
+        <div class="objectives-layout">
+            <div>
+                <span class="section-label">Our Mission</span>
+                <h2 class="section-title">What We Stand For</h2>
+                <p class="section-desc">Founded in 2013 by Pastor Kenneth Achuenu, House of Christ International began in Verona, Italy, and has since expanded to Newcastle, UK â€” with a heart for the world.</p>
+                <a href="about.html" class="btn-primary" style="margin-top:1.5rem; font-size:0.9rem;">Learn Our Story <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="objectives-image">
+                <div class="objectives-image-overlay">
+                    <div class="objectives-image-tag">Founded 2013 Â· Italy &amp; UK</div>
                 </div>
             </div>
-            <div class="stream-info">
-                <h3>Join Us Live</h3>
-                <p>Watch our Sunday service live at 9:00 AM and 11:00 AM</p>
-                <div class="stream-schedule">
-                    <div class="schedule-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Sunday Service: 9:00 AM & 11:00 AM</span>
-                    </div>
-                    <div class="schedule-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Wednesday Bible Study: 7:00 PM</span>
-                    </div>
-                </div>
+        </div>
+        <div class="objectives-grid">
+            <div class="obj-card">
+                <div class="obj-icon"><i class="fas fa-hands-helping"></i></div>
+                <div class="obj-title">Community Outreach</div>
+                <p class="obj-desc">Engaging local communities in Newcastle to spread the love of Christ through practical service and support.</p>
+            </div>
+            <div class="obj-card">
+                <div class="obj-icon"><i class="fas fa-seedling"></i></div>
+                <div class="obj-title">Spiritual Growth</div>
+                <p class="obj-desc">Fostering an environment where every person can deepen their relationship with God and grow in living faith.</p>
+            </div>
+            <div class="obj-card">
+                <div class="obj-icon"><i class="fas fa-globe"></i></div>
+                <div class="obj-title">Global Impact</div>
+                <p class="obj-desc">Extending our ministry beyond borders â€” reaching and transforming lives around the world with hope and salvation.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Overhauled Card Area: Three Distinct Mini Cards in a Soft Container -->
-    <div class="info-card-overhaul-bg">
-        <h2 class="section-title" style="text-align:center; margin-bottom:2rem;">Quick Links</h2>
-        <div class="info-card-overhaul-flex">
-            <div class="mini-card mini-card-give">
-                <div class="mini-card-icon"><i class="fas fa-donate"></i></div>
-                <div class="mini-card-title">Support Our Ministry</div>
-                <div class="mini-card-desc">Make a difference in our community with your gift.</div>
-                <a href="#" class="mini-card-btn">Give Now</a>
-                    </div>
-            <div class="mini-card mini-card-scripture">
-                <div class="mini-card-icon"><i class="fas fa-book-open"></i></div>
-                <div class="mini-card-title">Scripture of the Day</div>
-                <blockquote class="mini-card-scripture-text">“For I know the plans I have for you,” declares the Lord, “plans to prosper you and not to harm you, plans to give you hope and a future.”<br><span>— Jeremiah 29:11</span></blockquote>
-                </div>
-            <div class="mini-card mini-card-event">
-                <div class="mini-card-icon"><i class="fas fa-calendar-alt"></i></div>
-                <div class="mini-card-title">Next Event</div>
-                <div id="next-event-card">
-                  <div style="color:#888;font-size:1rem;">Loading next event...</div>
-                    </div>
-                </div>
-                    </div>
-                </div>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <img src="images/HOC3.png" alt="House of Christ Logo" style="height:52px; width:auto; border-radius:50%; margin-bottom:0.75rem;">
+            <p>A community of believers in Newcastle, UK â€” committed to worship, the Word, and the world.</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Pages</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="#">Sunday 12 PM â€“ 2 PM</a></li>
+                <li><a href="#">Live on YouTube</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <div class="footer-contact-row"><i class="fas fa-map-marker-alt"></i>89 West View, Newcastle, Elswick NE4 7RR</div>
+            <div class="footer-contact-row"><i class="fas fa-phone"></i>+44 7724 367363</div>
+            <div class="footer-contact-row"><i class="fas fa-envelope"></i>houseofchristinternational@gmail.com</div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 House of Christ International. All rights reserved.</p>
+        <p>Newcastle, United Kingdom</p>
+    </div>
+</footer>
 
-    <section class="sermon-archive">
-        <h2 class="section-title">Sermon Archive</h2>
-        <div id="sermon-archive-grid" class="sermon-grid"></div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-      const supabaseUrl = 'https://lcuruntkcpddpzmzdnyn.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjdXJ1bnRrY3BkZHB6bXpkbnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDcyMDksImV4cCI6MjA2MjQ4MzIwOX0.AogQJ4KEqOQUtamf9OruOkpMO813Yj6-IWT3LCBQsGY';
-      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+<!-- ===== SCRIPTS ===== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL = 'https://yaxdntondvhavkrbxxzb.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlheGRudG9uZHZoYXZrcmJ4eHpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNTAyMTIsImV4cCI6MjA5NjkyNjIxMn0.vq5UEZmM7HKlIVEhEfMKGa3IJQ5gHtnsETuh7r35Sw0';
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      async function loadSermonArchive() {
-        const { data, error } = await supabase
-          .from('sermons')
-          .select('*')
-          .order('date', { ascending: false })
-          .limit(3);
+    // Load latest 3 sermons
+    async function loadSermonArchive() {
+        const { data, error } = await db
+            .from('sermons')
+            .select('*')
+            .order('date', { ascending: false })
+            .limit(3);
+
         const container = document.getElementById('sermon-archive-grid');
-        if (error) {
-          container.innerHTML = '';
-        } else {
-          if (!data || data.length === 0) {
-            container.innerHTML = '';
-          } else {
-            container.innerHTML = '';
-            data.forEach((sermon, i) => {
-              const card = document.createElement('div');
-              card.className = 'sermon-card';
-              card.style.animationDelay = (i * 0.12) + 's';
-              card.innerHTML = `
-                <img src="${sermon.thumbnail_url}" alt="${sermon.title}" class="sermon-thumbnail">
-                <div class="sermon-info">
-                  <h3 class="sermon-title">${sermon.title}</h3>
-                  <p class="sermon-date">${sermon.date}</p>
-                  <p class="sermon-description">${sermon.description}</p>
-                  <a href="sermon.html?id=${sermon.id}" class="sermon-link">Watch Sermon</a>
-                    </div>
-              `;
-              container.appendChild(card);
-            });
-          }
+        if (error || !data || data.length === 0) { container.innerHTML = ''; return; }
+
+        container.innerHTML = '';
+        data.forEach((sermon, i) => {
+            const card = document.createElement('div');
+            card.className = 'sermon-card';
+            card.style.animationDelay = (i * 0.12) + 's';
+            card.innerHTML = `
+                <div class="sermon-thumb">
+                    ${sermon.thumbnail_url ? `<img src="${sermon.thumbnail_url}" alt="${sermon.title}">` : '<i class="fas fa-play-circle sermon-thumb-icon"></i>'}
+                    <div class="sermon-play"><i class="fas fa-play"></i></div>
+                </div>
+                <div class="sermon-body">
+                    <div class="sermon-date">${sermon.date ? new Date(sermon.date).toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}) : ''}</div>
+                    <h3 class="sermon-title">${sermon.title}</h3>
+                    <p class="sermon-desc">${sermon.description || ''}</p>
+                    <a href="sermon.html?id=${sermon.id}" class="sermon-link">Watch Sermon <i class="fas fa-arrow-right"></i></a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Load next event
+    async function loadNextEvent() {
+        const now = new Date().toISOString();
+        const { data, error } = await db
+            .from('events')
+            .select('*')
+            .gt('date', now)
+            .order('date', { ascending: true })
+            .limit(1);
+
+        const card = document.getElementById('next-event-card');
+        if (error || !data || data.length === 0) {
+            card.innerHTML = '<span style="opacity:0.7;">No upcoming events.</span>';
+            return;
         }
-      }
-      window.addEventListener('DOMContentLoaded', loadSermonArchive);
-    </script>
-
-    <section class="features">
-        <h2 class="section-title">Our Objectives</h2>
-        <div class="objectives-bg" style="background: #fff; box-shadow: 0 4px 18px rgba(0,0,0,0.07); border-radius: 30px; max-width: 1100px; margin: 2.5rem auto 2.5rem auto; padding: 2rem 1.5rem 2.5rem 1.5rem;">
-            <div class="objectives-flex" style="display: flex; flex-direction: row; gap: 2.2rem; justify-content: center; align-items: stretch; flex-wrap: nowrap;">
-                <div class="objective-card objective-card-red">
-                    <div class="objective-icon"><i class="fas fa-hands-helping"></i></div>
-                    <div class="objective-title">Community Outreach</div>
-                    <div class="objective-desc">Engage with local communities to spread the love of Christ through service and support.</div>
-            </div>
-                <div class="objective-card objective-card-blue">
-                    <div class="objective-icon"><i class="fas fa-seedling"></i></div>
-                    <div class="objective-title">Spiritual Growth</div>
-                    <div class="objective-desc">Foster an environment where individuals can deepen their relationship with God and grow in their faith.</div>
-            </div>
-                <div class="objective-card objective-card-gold">
-                    <div class="objective-icon"><i class="fas fa-globe"></i></div>
-                    <div class="objective-title">Global Impact</div>
-                    <div class="objective-desc">Extend our ministry beyond borders to reach and touch lives around the world with the message of hope and salvation.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <style>
-    .objectives-bg {
-        background: #fff !important;
-        box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-        border-radius: 30px;
-        max-width: 1100px;
-        margin: 2.5rem auto 2.5rem auto;
-        padding: 2rem 1.5rem 2.5rem 1.5rem;
-    }
-    .objectives-flex {
-        display: flex;
-        flex-direction: row;
-        gap: 2.2rem;
-        justify-content: center;
-        align-items: stretch;
-        flex-wrap: nowrap;
-    }
-    .objective-card {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 4px 18px rgba(0,0,0,0.09);
-        padding: 1.5rem 1.2rem 1.7rem 1.2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        min-width: 260px;
-        max-width: 360px;
-        width: 100%;
-        position: relative;
-        transition: transform 0.2s, box-shadow 0.2s;
-        margin: 0 0.5rem;
-    }
-    .objective-card-red { border-top: 5px solid var(--primary-red); }
-    .objective-card-blue { border-top: 5px solid var(--primary-blue); }
-    .objective-card-gold { border-top: 5px solid var(--gold); }
-    .objective-icon {
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-    }
-    .objective-card-red .objective-icon {
-        background: linear-gradient(135deg, var(--primary-red), var(--gold));
-    }
-    .objective-card-blue .objective-icon {
-        background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
-    }
-    .objective-card-gold .objective-icon {
-        background: linear-gradient(135deg, var(--primary-blue), var(--gold));
-    }
-    .objective-title {
-        font-weight: 800;
-        font-size: 1.18rem;
-        margin-bottom: 0.5rem;
-        text-align: left;
-        letter-spacing: -0.5px;
-    }
-    .objective-desc {
-        font-size: 1.03rem;
-        color: #444;
-        text-align: left;
-    }
-    .objective-card:hover {
-        transform: translateY(-7px) scale(1.03);
-        box-shadow: 0 12px 40px rgba(0,0,0,0.13);
-        z-index: 2;
-    }
-    @media (max-width: 1100px) {
-        .objectives-bg { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
-    }
-    @media (max-width: 900px) {
-        .objectives-flex { flex-direction: column; gap: 1.5rem; flex-wrap: nowrap; }
-        .objective-card { margin: 0 auto; max-width: 420px; }
-    }
-    </style>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <div class="footer-contact-row"><span class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></span>89 West View, Newcastle, Elswick NE4 7RR</div>
-                <div class="footer-contact-row"><span class="footer-contact-icon"><i class="fas fa-phone"></i></span>+447724367363</div>
-                <div class="footer-contact-row footer-contact-email"><span class="footer-contact-icon"><i class="fas fa-envelope"></i></span><span>houseofchristinternational@gmail.com</span></div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="sermons.html">Sermons</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="give.html">Give</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Service Times</h3>
-                <p>Sunday Service: 12 PM - 2 PM</p>
-            </div>
-            <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 House Of Christ. All rights reserved.</p>
-        </div>
-    </footer>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.body.classList.add('page-fadein');
-        // Animate major sections
-        var hero = document.querySelector('.hero');
-        if(hero) hero.classList.add('section-animate');
-        var objectives = document.querySelector('.objectives-bg');
-        if(objectives) objectives.classList.add('section-animate-delayed');
-        var live = document.querySelector('.live-stream');
-        if(live) live.classList.add('section-animate');
-        var archive = document.querySelector('.sermon-archive');
-        if(archive) archive.classList.add('section-animate-delayed');
-    });
-    </script>
-    <script>
-    (async function() {
-      const supabaseUrl = 'https://lcuruntkcpddpzmzdnyn.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjdXJ1bnRrY3BkZHB6bXpkbnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDcyMDksImV4cCI6MjA2MjQ4MzIwOX0.AogQJ4KEqOQUtamf9OruOkpMO813Yj6-IWT3LCBQsGY';
-      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-      const now = new Date().toISOString();
-      const { data, error } = await supabase
-        .from('events')
-        .select('*')
-        .gt('date', now)
-        .order('date', { ascending: true })
-        .limit(1);
-      const card = document.getElementById('next-event-card');
-      if (error) {
-        card.innerHTML = '<div style="color:#b00;">Could not load event.</div>';
-      } else if (!data || data.length === 0) {
-        card.innerHTML = '<div style="color:#888;">No upcoming events.</div>';
-      } else {
-        const event = data[0];
+        const ev = data[0];
         card.innerHTML = `
-          <div class="mini-card-event-title">${event.title}</div>
-          <div class="mini-card-event-desc">${event.description || ''}</div>
-          <div style="color:var(--primary-red);font-weight:600;margin-bottom:0.5rem;">${event.date ? new Date(event.date).toLocaleDateString() : ''}</div>
-          <a href="events.html" class="mini-card-btn mini-card-btn-event">Learn More</a>
+            <strong style="display:block; margin-bottom:0.3rem;">${ev.title}</strong>
+            ${ev.description ? `<span style="display:block; margin-bottom:0.3rem; opacity:0.85;">${ev.description}</span>` : ''}
+            <span style="display:block; font-weight:600; color:var(--gold);">${ev.date ? new Date(ev.date).toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'long'}) : ''}</span>
         `;
-      }
-    })();
-    </script>
-    <script>
-        // YouTube API Integration
-        const CHANNEL_ID = 'UCVauh-QZp6rtzmsHHHwYpvA'; // Replace with your YouTube channel ID
-        const API_KEY = 'AIzaSyDvfF3L0LtUeO8fXoEtT7MKQ9ABZb44zlU'; // Replace with your new API key (never share this publicly)
+    }
 
-        async function checkLiveStream() {
-            // Add loading state to buttons
-            const buttons = document.querySelectorAll('.refresh-button');
-            buttons.forEach(button => {
-                button.disabled = true;
-                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
-            });
+    window.addEventListener('DOMContentLoaded', () => {
+        loadSermonArchive();
+        loadNextEvent();
+    });
+</script>
 
-            try {
-                const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&eventType=live&key=${API_KEY}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                const player = document.getElementById('youtube-player');
-                const placeholder = document.getElementById('stream-placeholder');
-                if (data.items && data.items.length > 0) {
-                    // Live stream is active
-                    const videoId = data.items[0].id.videoId;
-                    player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                    player.style.display = 'block';
-                    placeholder.style.display = 'none';
-                } else {
-                    // No live stream
-                    player.style.display = 'none';
-                    placeholder.style.display = 'flex';
-                    // Update message to 'Live stream has ended'
-                    placeholder.innerHTML = `
-                        <div style="text-align: center; padding: 2rem;">
-                            <i class="fas fa-video" style="font-size: 3rem; color: #666; margin-bottom: 1rem;"></i>
-                            <h3 style="color: #333; margin-bottom: 0.5rem;">Live stream has ended</h3>
-                            <p style="color: #666;">Check back during our service times</p>
-                            <button id="refresh-stream" class="refresh-button" onclick="checkLiveStream()">
-                                <i class="fas fa-sync-alt"></i> Check for Live Stream
-                            </button>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                // Show error state to user
-                const placeholder = document.getElementById('stream-placeholder');
+<script>
+    // YouTube Live Stream Check
+    const CHANNEL_ID = 'UCVauh-QZp6rtzmsHHHwYpvA';
+    const API_KEY = 'AIzaSyDvfF3L0LtUeO8fXoEtT7MKQ9ABZb44zlU';
+
+    async function checkLiveStream() {
+        const buttons = document.querySelectorAll('.refresh-button');
+        buttons.forEach(b => { b.disabled = true; b.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...'; });
+
+        try {
+            const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&type=video&eventType=live&key=${API_KEY}`);
+            const data = await res.json();
+            const player = document.getElementById('youtube-player');
+            const placeholder = document.getElementById('stream-placeholder');
+            const banner = document.getElementById('live-banner');
+
+            if (data.items && data.items.length > 0) {
+                const videoId = data.items[0].id.videoId;
+                player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                player.style.display = 'block';
+                placeholder.style.display = 'none';
+                banner.style.display = 'flex';
+            } else {
+                player.style.display = 'none';
+                placeholder.style.display = 'flex';
+                banner.style.display = 'none';
                 placeholder.innerHTML = `
-                    <div style="text-align: center; padding: 2rem;">
-                        <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: #b00; margin-bottom: 1rem;"></i>
-                        <h3 style="color: #333; margin-bottom: 0.5rem;">Unable to check live stream</h3>
-                        <p style="color: #666;">Error: ${error.message}</p>
-                        <button id="refresh-stream" class="refresh-button" onclick="checkLiveStream()">
-                            <i class="fas fa-sync-alt"></i> Try Again
-                        </button>
-                    </div>
+                    <i class="fas fa-video"></i>
+                    <h3>Live stream has ended</h3>
+                    <p>Check back during our service times</p>
+                    <button class="refresh-button" onclick="checkLiveStream()"><i class="fas fa-sync-alt"></i> Check for Live Stream</button>
                 `;
-            } finally {
-                // Reset button states
-                buttons.forEach(button => {
-                    button.disabled = false;
-                    button.innerHTML = '<i class="fas fa-sync-alt"></i> Check for Live Stream';
-                });
             }
+        } catch (err) {
+            document.getElementById('stream-placeholder').innerHTML = `
+                <i class="fas fa-exclamation-circle" style="color:var(--crimson);"></i>
+                <h3>Unable to check live stream</h3>
+                <p>${err.message}</p>
+                <button class="refresh-button" onclick="checkLiveStream()"><i class="fas fa-sync-alt"></i> Try Again</button>
+            `;
+        } finally {
+            document.querySelectorAll('.refresh-button').forEach(b => {
+                b.disabled = false;
+                b.innerHTML = '<i class="fas fa-sync-alt"></i> Check for Live Stream';
+            });
         }
+    }
 
-        // Check for live stream every 5 minutes
-        checkLiveStream();
-        setInterval(checkLiveStream, 300000);
-    </script>
+    checkLiveStream();
+    setInterval(checkLiveStream, 300000);
+</script>
+
 </body>
-</html> 
+</html>
+
+
+

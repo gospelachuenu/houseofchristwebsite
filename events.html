@@ -1,636 +1,290 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events - House Of Christ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Events - House Of Christ International</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --primary-red: #FF0000;
-            --primary-blue: #87CEEB;
-            --white: #FFFFFF;
-            --light-gray: #F5F5F5;
-            --gold: #FFD700;
-            --text-color: #000000;
+            --navy:    #0D1B2A;
+            --crimson: #C0392B;
+            --gold:    #C9A84C;
+            --cream:   #FAF8F5;
+            --white:   #FFFFFF;
+            --gray-50: #F9F9F7;
+            --gray-100:#F0EDE8;
+            --gray-700:#4A4540;
+            --text:    #1A1612;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); line-height: 1.6; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            background-color: var(--light-gray);
-            color: var(--text-color);
-        }
+        /* NAV */
+        .nav { position: fixed; top: 0; width: 100%; background: rgba(13,27,42,0.97); backdrop-filter: blur(12px); padding: 0 6%; display: flex; justify-content: space-between; align-items: center; height: 70px; z-index: 1000; border-bottom: 1px solid rgba(201,168,76,0.2); }
+        .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .nav-logo-img { height: 58px; width: auto; border-radius: 50%; }
+        .nav-logo-text { color: white; line-height: 1.2; }
+        .nav-logo-text strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+        .nav-logo-text small { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        .nav-links a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-give-btn { background: var(--crimson) !important; color: white !important; padding: 0.5rem 1.3rem; border-radius: 6px; font-weight: 600 !important; }
 
-        .modern-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
+        /* PAGE HERO */
+        .page-hero { margin-top: 70px; min-height: 40vh; position: relative; background: var(--navy); display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+        .page-hero-bg { position: absolute; inset: 0; background: url('images/poster.jpg') center/cover no-repeat; opacity: 0.2; }
+        .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,27,42,0.7) 0%, rgba(13,27,42,0.85) 100%); }
+        .page-hero-content { position: relative; z-index: 1; padding: 3rem 2rem; max-width: 700px; }
+        .page-hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.35); color: var(--gold); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.2rem; }
+        .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: white; margin-bottom: 1rem; }
+        .page-hero p { color: rgba(255,255,255,0.7); font-size: 1.05rem; }
 
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            max-height: 80px;
-            overflow: hidden;
-        }
+        /* CALENDAR LAYOUT */
+        .events-section { padding: 4rem 6%; background: var(--gray-50); }
+        .events-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 360px; gap: 2.5rem; align-items: start; }
 
-        .nav-brand img {
-            height: 200px;
-            margin-right: 0;
-            vertical-align: middle;
-            transform: scale(0.8);
-            transform-origin: left center;
-        }
+        /* CALENDAR */
+        .calendar-wrap { background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+        .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+        .calendar-header h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); }
+        .cal-nav-btn { background: none; border: 1.5px solid var(--gray-100); color: var(--navy); width: 36px; height: 36px; border-radius: 8px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s; }
+        .cal-nav-btn:hover { border-color: var(--crimson); color: var(--crimson); }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--gold));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: scaleIn 0.8s ease-out 0.6s forwards;
-            opacity: 0;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.4);
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-
-        .calendar-main-container {
-            max-width: 1100px;
-            margin: 60px auto 0 auto;
-            display: flex;
-            gap: 2.5rem;
-            align-items: stretch;
-            justify-content: center;
-            padding: 2rem 1rem;
-            animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
-            animation-delay: 0.2s;
-        }
-        .calendar-container {
-            flex: 2;
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 2.5rem 2rem 2rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            min-width: 400px;
-            min-height: 600px;
-        }
-        .calendar-header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            gap: 2rem;
-        }
-        .calendar-header h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 0;
-            color: var(--primary-red);
-            letter-spacing: -1px;
-            flex: 1;
-            text-align: center;
-        }
-        .calendar-nav-btn {
-            background: none;
-            border: none;
-            color: var(--primary-red);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .calendar-nav-btn:hover {
-            color: var(--primary-blue);
-        }
-        .calendar-table {
-            width: 100%;
-            height: 100%;
-            border-collapse: separate;
-            border-spacing: 0.5rem;
-            flex: 1;
-            table-layout: fixed;
-            margin-bottom: 1.5rem;
-            background: #fff;
-            border-radius: var(--radius);
-            box-shadow: 0 2px 8px rgba(59,130,246,0.04);
-        }
-        .calendar-table th {
-            color: var(--primary-blue);
-            font-weight: 600;
-            font-size: 1.1rem;
-            padding-bottom: 0.5rem;
-            text-align: center;
-        }
+        .calendar-table { width: 100%; border-collapse: separate; border-spacing: 4px; }
+        .calendar-table th { color: var(--gold); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding-bottom: 0.75rem; text-align: center; }
         .calendar-table td {
-            width: 14.2%;
-            aspect-ratio: 1/1;
-            text-align: center;
-            font-size: 1.3rem;
-            border-radius: 16px;
-            background: var(--gray-bg);
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-            position: relative;
-            font-weight: 500;
-            border: 2px solid transparent;
-            vertical-align: middle;
-            display: table-cell;
+            text-align: center; font-size: 0.92rem; border-radius: 8px;
+            background: var(--gray-50); cursor: pointer; padding: 0.6rem 0.3rem;
+            transition: background 0.15s, color 0.15s; position: relative;
+            font-weight: 500; border: 1.5px solid transparent; color: var(--text);
         }
-        .calendar-table td.today {
-            border: 2px solid var(--primary-blue);
-            background: #e0f2fe;
-        }
-        .calendar-table td.selected {
-            background: var(--primary-red);
-            color: var(--white);
-            box-shadow: 0 2px 8px rgba(255,59,63,0.13);
-        }
-        .calendar-table td.has-event::after {
-            content: '';
-            display: block;
-            width: 8px;
-            height: 8px;
-            background: var(--primary-red);
-            border-radius: 50%;
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .calendar-table td:hover:not(.selected):not(.empty) {
-            background: var(--primary-blue);
-            color: var(--white);
-        }
-        .calendar-table td.empty {
-            background: none;
-            cursor: default;
-        }
-        .event-details-panel {
-            flex: 1;
-            background: #fff;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 2.5rem 2rem;
-            margin: 0;
-            min-width: 320px;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            transition: box-shadow 0.2s;
-            min-height: 600px;
-            margin-left: 0;
-        }
-        .event-details-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 0.5rem;
-        }
-        .event-details-date {
-            color: var(--primary-blue);
-            font-size: 1rem;
-            margin-bottom: 0.7rem;
-        }
-        .event-details-description {
-            font-size: 1rem;
-            color: #222;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        .event-details-image {
-            width: 100%;
-            max-width: 320px;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            object-fit: cover;
-        }
-        .event-details-link {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
-            color: var(--white);
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 500;
-            font-size: 1rem;
-            border: none;
-            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
-            transition: background 0.3s, color 0.3s, transform 0.2s;
-            margin-top: 0.5rem;
-            cursor: pointer;
-        }
-        .event-details-link:hover {
-            background: linear-gradient(90deg, var(--primary-blue), var(--primary-red));
-            color: var(--white);
-            transform: translateY(-2px) scale(1.04);
-            box-shadow: 0 6px 18px rgba(255,0,0,0.13);
-        }
-        @media (max-width: 900px) {
-            .calendar-main-container {
-                flex-direction: column;
-                gap: 1.5rem;
-                padding: 1rem 0.2rem;
-            }
-            .calendar-container, .event-details-panel {
-                min-width: 0;
-                max-width: 100vw;
-                min-height: unset;
-                padding: 1.2rem 0.5rem;
-            }
-            .event-details-panel {
-                margin-top: 1.5rem;
-            }
-        }
-        .footer {
-            background: var(--text-color);
-            color: var(--white);
-            padding: 4rem 5% 0;
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            padding-bottom: 2rem;
-        }
-        .footer-section h3 {
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-        .footer-section p, .footer-section .footer-contact-row {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            margin-bottom: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.97rem;
-        }
-        .footer-contact-icon {
-            min-width: 22px;
-            text-align: center;
-            margin-top: 2px;
-        }
-        .footer-contact-email span {
-            white-space: nowrap;
-            overflow-wrap: anywhere;
-            font-size: 0.85rem;
-            letter-spacing: -0.01em;
-        }
-        .footer-section ul {
-            list-style: none;
-        }
-        .footer-section ul li {
-            margin-bottom: 0.8rem;
-        }
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .footer-section a:hover {
-            color: var(--primary-red);
-        }
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        .social-links a {
-            color: var(--white);
-            font-size: 1.5rem;
-            transition: transform 0.3s, color 0.3s;
-        }
-        .social-links a:hover {
-            color: var(--primary-red);
-            transform: translateY(-3px);
-        }
-        .footer-bottom {
-            text-align: center;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-        @media (max-width: 768px) {
-            .footer-content { 
-                grid-template-columns: 1fr; 
-                text-align: center; 
-            }
-            .social-links { 
-                justify-content: center; 
-            }
-        }
-        .events-hero {
-            width: 100%;
-            min-height: 350px;
-            background: linear-gradient(rgba(135, 206, 235, 0.7), rgba(255, 0, 0, 0.7)),
-                        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 16px rgba(59,130,246,0.06);
-        }
-        .events-hero-content {
-            text-align: center;
-            padding: 4rem 1rem 3rem 1rem;
-            animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
-        }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: none;
-            }
-        }
-        .events-hero-content h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.7rem;
-            letter-spacing: -1px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.25);
-        }
-        .events-hero-content p {
-            font-size: 1.2rem;
-            color: #fff;
-            margin: 0 auto;
-            max-width: 600px;
-            text-shadow: 1px 1px 6px rgba(0,0,0,0.18);
-        }
-        @media (max-width: 700px) {
-            .events-hero-content h1 {
-                font-size: 2rem;
-            }
-            .events-hero-content p {
-                font-size: 1rem;
-            }
-            .events-hero {
-                min-height: 180px;
-                margin-bottom: 1rem;
-            }
-        }
+        .calendar-table td.empty { background: none; cursor: default; border: none; }
+        .calendar-table td.today { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+        .calendar-table td.has-event::after { content: ''; display: block; width: 6px; height: 6px; background: var(--crimson); border-radius: 50%; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); }
+        .calendar-table td.selected { background: var(--navy); color: white; border-color: var(--navy); }
+        .calendar-table td:hover:not(.selected):not(.empty) { background: var(--crimson); color: white; }
+
+        /* EVENT PANEL */
+        .event-panel { background: var(--white); border-radius: 16px; padding: 2rem; box-shadow: 0 2px 20px rgba(0,0,0,0.06); min-height: 400px; }
+        .event-panel-empty { color: var(--gray-700); font-size: 0.95rem; text-align: center; padding: 3rem 1rem; }
+        .event-panel-empty i { font-size: 2.5rem; color: var(--gray-100); display: block; margin-bottom: 1rem; }
+
+        .event-item { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--gray-100); }
+        .event-item:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+        .event-item-date { font-size: 0.75rem; font-weight: 700; color: var(--crimson); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+        .event-item-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+        .event-item-desc { font-size: 0.88rem; color: var(--gray-700); line-height: 1.6; margin-bottom: 1rem; }
+        .event-item-img { width: 100%; border-radius: 10px; object-fit: cover; max-height: 180px; margin-bottom: 1rem; }
+        .event-link { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--crimson); color: white; padding: 0.55rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background 0.2s; }
+        .event-link:hover { background: #a93226; }
+
+        /* FOOTER */
+        .footer { background: var(--navy); color: white; padding: 4rem 6% 0; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; }
+        .footer-brand p { color: rgba(255,255,255,0.55); font-size: 0.88rem; margin: 1rem 0 1.5rem; line-height: 1.7; max-width: 260px; }
+        .footer-social { display: flex; gap: 0.75rem; }
+        .footer-social a { width: 36px; height: 36px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 0.9rem; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+        .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+        .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.7rem; }
+        .footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+        .footer-col ul li a:hover { color: white; }
+        .footer-contact-row { display: flex; gap: 0.7rem; align-items: flex-start; margin-bottom: 0.75rem; color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5; }
+        .footer-contact-row i { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding: 1.5rem 0; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+        .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 0.82rem; }
+
+        @media (max-width: 900px) { .events-inner { grid-template-columns: 1fr; } .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+        @media (max-width: 640px) { .nav-links { display: none; } .footer-inner { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <nav class="modern-nav">
-        <a href="index.html" class="nav-brand">
-            <img src="images/HOC.png" alt="Church Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="sermons.html">Sermons</a>
-            <a href="events.html">Events</a>
-            <a href="give.html">Give</a>
-            <a href="contact.html">Contact</a>
+
+<nav class="nav">
+    <a href="index.html" class="nav-logo">
+        <img src="images/HOC3.png" alt="House of Christ Logo" class="nav-logo-img">
+        <div class="nav-logo-text">
+            <strong>House of Christ</strong>
+            <small>International</small>
         </div>
-    </nav>
-    <section class="events-hero">
-        <div class="events-hero-content">
-            <h1>Events Calendar</h1>
-            <p>Click a date to see event details. Join us for our latest gatherings, services, and special events!</p>
-        </div>
-    </section>
-    <div class="calendar-main-container">
-        <div class="calendar-container">
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="sermons.html">Sermons</a>
+        <a href="events.html">Events</a>
+        <a href="contact.html">Contact</a>
+        <a href="give.html" class="nav-give-btn">Give <i class="fas fa-heart" style="font-size:0.75rem;"></i></a>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+        <div class="page-hero-eyebrow"><i class="fas fa-calendar-alt"></i> Events</div>
+        <h1>Events Calendar</h1>
+        <p>Click a date to see event details. Join us for our latest gatherings, services, and special events.</p>
+    </div>
+</section>
+
+<section class="events-section">
+    <div class="events-inner">
+        <div class="calendar-wrap">
             <div class="calendar-header">
-                <button class="calendar-nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-                <h2 id="calendarTitle">May 2025</h2>
-                <button class="calendar-nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                <button class="cal-nav-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <h2 id="calendarTitle"></h2>
+                <button class="cal-nav-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
             </div>
             <table class="calendar-table" id="calendarTable"></table>
         </div>
-        <div class="event-details-panel" id="event-details-panel">
-            <div style="color: #aaa; font-size: 1.1rem;">Select a date with an event to see details.</div>
+        <div class="event-panel" id="event-panel">
+            <div class="event-panel-empty">
+                <i class="fas fa-calendar-day"></i>
+                <p>Select a date to see event details.</p>
+            </div>
         </div>
     </div>
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <div class="footer-contact-row"><span class="footer-contact-icon"><i class="fas fa-map-marker-alt"></i></span>89 West View, Newcastle, Elswick NE4 7RR</div>
-                <div class="footer-contact-row"><span class="footer-contact-icon"><i class="fas fa-phone"></i></span>+447724367363</div>
-                <div class="footer-contact-row footer-contact-email"><span class="footer-contact-icon"><i class="fas fa-envelope"></i></span><span>houseofchristinternational@gmail.com</span></div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="sermons.html">Sermons</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="give.html">Give</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Service Times</h3>
-                <p>Sunday Service: 12 PM - 2 PM</p>
-            </div>
-            <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
-                </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <img src="images/HOC3.png" alt="House of Christ Logo" style="height:52px; width:auto; border-radius:50%; margin-bottom:0.75rem;">
+            <p>A community of believers in Newcastle, UK â€” committed to worship, the Word, and the world.</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/hocinternational" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/houseofchristint/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@Houseofchristinternational" target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 House Of Christ. All rights reserved.</p>
+        <div class="footer-col">
+            <h4>Pages</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="sermons.html">Sermons</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="give.html">Give</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script>
-      // 1. Supabase setup (MUST be before any use of supabase)
-      const supabaseUrl = 'https://lcuruntkcpddpzmzdnyn.supabase.co';
-      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjdXJ1bnRrY3BkZHB6bXpkbnluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDcyMDksImV4cCI6MjA2MjQ4MzIwOX0.AogQJ4KEqOQUtamf9OruOkpMO813Yj6-IWT3LCBQsGY';
-      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+                <li><a href="#">Sunday 12 PM â€“ 2 PM</a></li>
+                <li><a href="#">Live on YouTube</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <div class="footer-contact-row"><i class="fas fa-map-marker-alt"></i>89 West View, Newcastle, Elswick NE4 7RR</div>
+            <div class="footer-contact-row"><i class="fas fa-phone"></i>+44 7724 367363</div>
+            <div class="footer-contact-row"><i class="fas fa-envelope"></i>houseofchristinternational@gmail.com</div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 House of Christ International. All rights reserved.</p>
+        <p>Newcastle, United Kingdom</p>
+    </div>
+</footer>
 
-      // 2. Calendar state
-      let events = [];
-      let currentYear = new Date().getFullYear();
-      let currentMonth = new Date().getMonth();
+<script>
+    const SUPABASE_URL = 'https://yaxdntondvhavkrbxxzb.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlheGRudG9uZHZoYXZrcmJ4eHpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNTAyMTIsImV4cCI6MjA5NjkyNjIxMn0.vq5UEZmM7HKlIVEhEfMKGa3IJQ5gHtnsETuh7r35Sw0';
+    const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      // 3. Render calendar
-      function renderCalendar(events, year, month) {
-        const calendarTable = document.getElementById('calendarTable');
-        const calendarTitle = document.getElementById('calendarTitle');
-            const today = new Date();
+    let events = [];
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+
+    function renderCalendar() {
+        const table = document.getElementById('calendarTable');
+        const title = document.getElementById('calendarTitle');
+        const today = new Date();
         const eventMap = {};
-        events.forEach(ev => { eventMap[ev.date] = ev; });
+        events.forEach(ev => { const d = ev.date ? ev.date.split('T')[0] : null; if (d) eventMap[d] = ev; });
 
-                const firstDay = new Date(year, month, 1);
-        calendarTitle.textContent = `${firstDay.toLocaleString('default', { month: 'long' })} ${year}`;
-                const lastDay = new Date(year, month + 1, 0);
-                const startDay = firstDay.getDay();
-                const daysInMonth = lastDay.getDate();
+        const firstDay = new Date(currentYear, currentMonth, 1);
+        title.textContent = firstDay.toLocaleString('default', { month: 'long', year: 'numeric' });
+        const startDay = firstDay.getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
         let html = '<thead><tr>';
-                ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => html += `<th>${d}</th>`);
+        ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => html += `<th>${d}</th>`);
         html += '</tr></thead><tbody>';
 
-                let day = 1;
+        let day = 1;
         for (let row = 0; row < 6; row++) {
-          html += '<tr>';
-          for (let col = 0; col < 7; col++) {
-            const cellIndex = row * 7 + col;
-            if (cellIndex < startDay || day > daysInMonth) {
-                        html += '<td class="empty"></td>';
-                    } else {
-                        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-                        let classes = [];
-                        if (eventMap[dateStr]) classes.push('has-event');
-              if (
-                today.getFullYear() === year &&
-                today.getMonth() === month &&
-                today.getDate() === day
-              ) classes.push('today');
-                        html += `<td class="${classes.join(' ')}" data-date="${dateStr}">${day}</td>`;
-                        day++;
-                    }
-          }
-          html += '</tr>';
+            html += '<tr>';
+            for (let col = 0; col < 7; col++) {
+                const cellIndex = row * 7 + col;
+                if (cellIndex < startDay || day > daysInMonth) {
+                    html += '<td class="empty"></td>';
+                } else {
+                    const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+                    let cls = [];
+                    if (eventMap[dateStr]) cls.push('has-event');
+                    if (today.getFullYear() === currentYear && today.getMonth() === currentMonth && today.getDate() === day) cls.push('today');
+                    html += `<td class="${cls.join(' ')}" data-date="${dateStr}">${day}</td>`;
+                    day++;
                 }
+            }
+            html += '</tr>';
+            if (day > daysInMonth) break;
+        }
         html += '</tbody>';
-        calendarTable.innerHTML = html;
+        table.innerHTML = html;
 
-        // Add click handlers to ALL non-empty dates
-        document.querySelectorAll('.calendar-table td').forEach(td => {
-          td.onclick = function() {
-            document.querySelectorAll('.calendar-table td.selected').forEach(cell => cell.classList.remove('selected'));
-            if (!td.classList.contains('empty')) {
-              td.classList.add('selected');
-              selectDate(td.getAttribute('data-date'));
-            }
-          }
-                });
-            }
+        document.querySelectorAll('.calendar-table td:not(.empty)').forEach(td => {
+            td.addEventListener('click', () => {
+                document.querySelectorAll('.calendar-table td.selected').forEach(c => c.classList.remove('selected'));
+                td.classList.add('selected');
+                showEvents(td.getAttribute('data-date'), eventMap);
+            });
+        });
+    }
 
-      // 4. Show event details
-        function selectDate(dateStr) {
-        const dayEvents = events.filter(ev => ev.date === dateStr);
-            const panel = document.getElementById('event-details-panel');
-        if (dayEvents.length === 0) {
-                panel.innerHTML = '<div style="color: #aaa; font-size: 1.1rem;">No event for this date.</div>';
-                return;
-            }
-        panel.innerHTML = dayEvents.map(event => `
-          <div style="margin-bottom:2rem;">
-                <div class="event-details-title">${event.title}</div>
-                <div class="event-details-date"><i class="far fa-calendar-alt"></i> ${event.date}</div>
-                <img src="${event.image}" alt="${event.title}" class="event-details-image">
-                <div class="event-details-description">${event.description}</div>
-                <a href="${event.link}" class="event-details-link">Learn More</a>
-          </div>
-        `).join('');
+    function showEvents(dateStr, eventMap) {
+        const panel = document.getElementById('event-panel');
+        const ev = eventMap[dateStr];
+        if (!ev) {
+            panel.innerHTML = `<div class="event-panel-empty"><i class="fas fa-calendar-day"></i><p>No events on this date.</p></div>`;
+            return;
         }
+        panel.innerHTML = `
+            <div class="event-item">
+                <div class="event-item-date">${new Date(ev.date).toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long', year:'numeric'})}</div>
+                <div class="event-item-title">${ev.title}</div>
+                ${ev.image ? `<img src="${ev.image}" alt="${ev.title}" class="event-item-img">` : ''}
+                <div class="event-item-desc">${ev.description || ''}</div>
+                ${ev.link ? `<a href="${ev.link}" class="event-link">Learn More <i class="fas fa-arrow-right"></i></a>` : ''}
+            </div>
+        `;
+    }
 
-      // 5. Navigation
-      document.getElementById('prevMonth').onclick = () => {
-        currentMonth--;
-        if(currentMonth < 0) { currentMonth = 11; currentYear--; }
-        renderCalendar(events, currentYear, currentMonth);
-      };
-      document.getElementById('nextMonth').onclick = () => {
-        currentMonth++;
-        if(currentMonth > 11) { currentMonth = 0; currentYear++; }
-        renderCalendar(events, currentYear, currentMonth);
-      };
+    async function loadEvents() {
+        const { data, error } = await db.from('events').select('*');
+        if (!error && data) events = data;
+        renderCalendar();
+    }
 
-      // 6. Load events from Supabase
-      async function loadEvents() {
-        const { data, error } = await supabase.from('events').select('*');
-        if (error) {
-          document.getElementById('event-details-panel').innerHTML = '<span style="color:red;">Error loading events from Supabase.</span>';
-          console.error('Error loading events:', error);
-          return;
-        }
-        events = data.map(ev => ({
-          ...ev,
-          date: ev.date
-        }));
-        renderCalendar(events, currentYear, currentMonth);
-      }
+    document.getElementById('prevMonth').onclick = () => {
+        currentMonth--; if (currentMonth < 0) { currentMonth = 11; currentYear--; } renderCalendar();
+    };
+    document.getElementById('nextMonth').onclick = () => {
+        currentMonth++; if (currentMonth > 11) { currentMonth = 0; currentYear++; } renderCalendar();
+    };
 
-      loadEvents();
-    </script>
+    loadEvents();
+</script>
 </body>
-</html> 
+</html>
+
+
+
