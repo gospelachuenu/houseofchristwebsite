@@ -59,7 +59,7 @@ async function checkLiveStreamStatus() {
 
 // Serve the main index page
 app.get('/', async (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 // Add a new endpoint for live stream status
@@ -72,29 +72,29 @@ app.get('/api/live-status', async (req, res) => {
 // Serve static files
 app.use(express.static(__dirname));
 
-// Allow direct access to main pages
+// Lock all main pages to coming soon
 app.get('/give.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'give.html'));
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 app.get('/about.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'about.html'));
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 app.get('/sermons.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'sermons.html'));
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 app.get('/events.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'events.html'));
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 app.get('/contact.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'contact.html'));
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 app.get('/give-success.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'give-success.html'));
+  res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 // Add contact form API route
@@ -306,9 +306,9 @@ app.post('/api/save-form-data', async (req, res) => {
     }
 });
 
-// Catch-all â€” serve index for any unmatched routes
+// Catch-all — serve coming soon for any unmatched routes
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'opening-soon.html'));
 });
 
 const port = process.env.PORT || 3000;
